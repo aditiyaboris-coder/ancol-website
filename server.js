@@ -1,15 +1,53 @@
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
+const multer = require('multer');
+const fs = require('fs');
 const { getDb, queryAll, queryOne, run } = require('./database');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ── Middleware ──
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 
-// ── HTML Routes ──
+app.use(session({
+  secret: 'ancol-admin-secret-2024',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 8 } // 8 jam
+}));
+
+// ── Multer untuk upload gambar ──
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(__dirname, 'public', 'uploads');
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `paket-${Date.now()}${ext}`);
+  }
+});
+const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
+
+// ── Admin credentials (hardcode) ──
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'ancol2024';
+
+// ── Middleware auth admin ──
+function requireAdmin(req, res, next) {
+  if (req.session && req.session.isAdmin) return next();
+  res.status(401).json({ success: false, message: 'Tidak terautentikasi' });
+}
+
+// ─────────────────────────────────────────
+// HALAMAN HTML ROUTES
+// ─────────────────────────────────────────
 const pages = ['', 'tentang', 'daya-tarik', 'galeri', 'paket', 'info-kunjungan', 'kontak', 'buku-tamu'];
 pages.forEach(p => {
   const route = p === '' ? '/' : `/${p}`;
@@ -17,14 +55,42 @@ pages.forEach(p => {
   app.get(route, (req, res) => res.sendFile(path.join(__dirname, 'public', `${file}.html`)));
 });
 
-// ── API: Buku Tamu ──
+// ── Admin halaman ──
+app.get('/admin', (req, res) => res.redirect('/admin/login'));
+app.get('/admin/login', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin', 'login.html')));
+app.get('/admin/dashboard', (req, res) => {
+  if (!req.session?.isAdmin) return res.redirect('/admin/login');
+  res.sendFile(path.join(__dirname, 'public', 'admin', 'dashboard.html'));
+});
+
+// ─────────────────────────────────────────
+// API: ADMIN AUTH
+// ─────────────────────────────────────────
+app.post('/admin/api/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    req.session.isAdmin = true;
+    res.json({ success: true });
+  } else {
+    res.status(401).json({ success: false, message: 'Username atau password salah' });
+  }
+});
+
+app.post('/admin/api/logout', (req, res) => {
+  req.session.destroy();
+  res.json({ success: true });
+});
+
+// ─────────────────────────────────────────
+// API: BUKU TAMU
+// ─────────────────────────────────────────
 app.get('/api/buku-tamu', async (req, res) => {
   try {
     await getDb();
     const entries = queryAll('SELECT * FROM buku_tamu ORDER BY tanggal DESC');
     res.json({ success: true, data: entries });
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Gagal mengambil data buku tamu: ' + err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -43,11 +109,24 @@ app.post('/api/buku-tamu', async (req, res) => {
     );
     res.json({ success: true, message: 'Pesan berhasil disimpan!', id: result.lastInsertRowid });
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Gagal menyimpan: ' + err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
-// ── API: Paket ──
+// DELETE buku tamu (admin only)
+app.delete('/admin/api/buku-tamu/:id', requireAdmin, async (req, res) => {
+  try {
+    await getDb();
+    run('DELETE FROM buku_tamu WHERE id = ?', [req.params.id]);
+    res.json({ success: true, message: 'Entri berhasil dihapus' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ─────────────────────────────────────────
+// API: PAKET WISATA
+// ─────────────────────────────────────────
 app.get('/api/paket', async (req, res) => {
   try {
     await getDb();
@@ -69,7 +148,30 @@ app.get('/api/paket/:id', async (req, res) => {
   }
 });
 
-// ── API: Booking ──
+// PUT edit paket (admin only) dengan upload gambar
+app.put('/admin/api/paket/:id', requireAdmin, upload.single('gambar'), async (req, res) => {
+  const { nama, deskripsi, harga, kapasitas, durasi, fasilitas } = req.body;
+  if (!nama || !harga || !kapasitas)
+    return res.status(400).json({ success: false, message: 'Field wajib tidak boleh kosong' });
+  try {
+    await getDb();
+    const existing = queryOne('SELECT * FROM paket_wisata WHERE id = ?', [req.params.id]);
+    if (!existing) return res.status(404).json({ success: false, message: 'Paket tidak ditemukan' });
+
+    const gambar = req.file ? req.file.filename : existing.gambar;
+    run(
+      'UPDATE paket_wisata SET nama=?, deskripsi=?, harga=?, kapasitas=?, durasi=?, fasilitas=?, gambar=? WHERE id=?',
+      [nama, deskripsi, parseInt(harga), parseInt(kapasitas), durasi, fasilitas, gambar, req.params.id]
+    );
+    res.json({ success: true, message: 'Paket berhasil diperbarui' });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ─────────────────────────────────────────
+// API: BOOKING
+// ─────────────────────────────────────────
 function generateKode() {
   return `ANCOL-${Date.now().toString().slice(-6)}-${Math.random().toString(36).slice(2,5).toUpperCase()}`;
 }
@@ -93,19 +195,15 @@ app.post('/api/booking', async (req, res) => {
     const total_bayar = paket.harga * jumlah_orang;
     const kode_booking = generateKode();
     const now = new Date().toISOString();
-
     run(
       'INSERT INTO booking (kode_booking,nama_pemesan,email,no_telepon,paket_id,jumlah_orang,tanggal_kunjungan,total_bayar,catatan,created_at) VALUES (?,?,?,?,?,?,?,?,?,?)',
       [kode_booking, nama_pemesan, email, no_telepon, paket_id, jumlah_orang, tanggal_kunjungan, total_bayar, catatan||'', now]
     );
-
     res.json({
-      success: true,
-      message: 'Booking berhasil!',
+      success: true, message: 'Booking berhasil!',
       data: {
-        kode_booking, nama_pemesan,
-        paket: paket.nama, jumlah_orang,
-        tanggal_kunjungan, total_bayar,
+        kode_booking, nama_pemesan, paket: paket.nama,
+        jumlah_orang, tanggal_kunjungan, total_bayar,
         rekening_transfer: { bank:'BCA', no_rekening:'1234567890', atas_nama:'PT Taman Impian Jaya Ancol', nominal: total_bayar }
       }
     });
@@ -114,13 +212,31 @@ app.post('/api/booking', async (req, res) => {
   }
 });
 
-// ── Start ──
+// GET semua booking (admin only)
+app.get('/admin/api/booking', requireAdmin, async (req, res) => {
+  try {
+    await getDb();
+    const bookings = queryAll(`
+      SELECT b.*, p.nama as nama_paket
+      FROM booking b
+      JOIN paket_wisata p ON b.paket_id = p.id
+      ORDER BY b.created_at DESC
+    `);
+    res.json({ success: true, data: bookings });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+// ─────────────────────────────────────────
+// START SERVER
+// ─────────────────────────────────────────
 async function start() {
   await getDb();
   app.listen(PORT, () => {
-    console.log(`\n🌊 Server Ancol berjalan di http://localhost:${PORT}`);
-    console.log(`📦 Database SQLite siap`);
-    console.log(`🚀 Ctrl+C untuk stop\n`);
+    console.log(`\n🌊 Server Ancol: http://localhost:${PORT}`);
+    console.log(`🔐 Admin panel: http://localhost:${PORT}/admin`);
+    console.log(`   Username: admin | Password: ancol2024\n`);
   });
 }
 start();

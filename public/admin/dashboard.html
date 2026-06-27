@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard Admin – Ancol</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #f0f4f8; color: #1a2a2e; display: flex; min-height: 100vh; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 240px; flex-shrink: 0;
+      background: #0a4a4e;
+      display: flex; flex-direction: column;
+      position: fixed; top: 0; left: 0; bottom: 0;
+      z-index: 100;
+    }
+    .sidebar-brand {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .sidebar-brand .logo { font-size: 1.3rem; font-weight: 700; color: #e8d5a3; }
+    .sidebar-brand .logo span { color: #fff; }
+    .sidebar-brand p { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
+    .sidebar-nav { flex: 1; padding: 1rem 0; overflow-y: auto; }
+    .nav-section { padding: 0.5rem 1rem 0.25rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+    .nav-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.7rem 1.25rem;
+      color: rgba(255,255,255,0.75);
+      cursor: pointer; transition: 0.15s;
+      font-size: 0.875rem; font-weight: 500;
+      border: none; background: none; width: 100%; text-align: left;
+      text-decoration: none;
+    }
+    .nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .nav-item.active { background: rgba(255,255,255,0.15); color: #e8d5a3; }
+    .nav-item .icon { width: 20px; text-align: center; font-size: 1rem; }
+    .sidebar-footer {
+      padding: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-logout {
+      width: 100%; padding: 0.6rem; background: rgba(224,92,58,0.2);
+      color: #ff8a70; border: 1px solid rgba(224,92,58,0.3);
+      border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+      font-weight: 600; font-family: inherit; transition: 0.15s;
+    }
+    .btn-logout:hover { background: rgba(224,92,58,0.35); }
+
+    /* ── Main Content ── */
+    .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar {
+      background: #fff; padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      position: sticky; top: 0; z-index: 50;
+    }
+    .topbar h1 { font-size: 1.1rem; font-weight: 700; color: #0a4a4e; }
+    .topbar .admin-info { font-size: 0.8rem; color: #6c757d; }
+    .content { padding: 2rem; flex: 1; }
+
+    /* ── Panels ── */
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* ── Stats ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+    .stat-card {
+      background: #fff; border-radius: 14px; padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .stat-icon { font-size: 2rem; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
+    .stat-icon.teal { background: #e0f5f7; }
+    .stat-icon.coral { background: #fde8e3; }
+    .stat-icon.sand { background: #fdf5e0; }
+    .stat-num { font-size: 1.8rem; font-weight: 800; color: #0a4a4e; line-height: 1; }
+    .stat-label { font-size: 0.8rem; color: #6c757d; margin-top: 0.2rem; }
+
+    /* ── Tables ── */
+    .card { background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; margin-bottom: 1.5rem; }
+    .card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #dee2e6; display: flex; align-items: center; justify-content: space-between; }
+    .card-header h3 { font-size: 1rem; font-weight: 700; color: #0a4a4e; }
+    .card-body { padding: 0; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: #f8f9fa; padding: 0.75rem 1rem; text-align: left; font-size: 0.8rem; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 0.05em; }
+    td { padding: 0.875rem 1rem; font-size: 0.875rem; border-bottom: 1px solid #f0f4f8; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f8fafc; }
+
+    /* ── Badges ── */
+    .badge { padding: 0.25rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+    .badge-success { background: #d1fae5; color: #065f46; }
+    .badge-warning { background: #fef3c7; color: #92400e; }
+    .badge-info { background: #dbeafe; color: #1e40af; }
+
+    /* ── Buttons ── */
+    .btn { padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: 0.15s; }
+    .btn-primary { background: #0d6b72; color: #fff; }
+    .btn-primary:hover { background: #0a4a4e; }
+    .btn-danger { background: #fee2e2; color: #991b1b; }
+    .btn-danger:hover { background: #fecaca; }
+    .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.775rem; }
+
+    /* ── Form ── */
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #0a4a4e; margin-bottom: 0.4rem; }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 0.65rem 0.875rem;
+      border: 2px solid #dee2e6; border-radius: 8px;
+      font-size: 0.875rem; font-family: inherit; outline: none; transition: 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: #12939e; box-shadow: 0 0 0 3px rgba(18,147,158,0.1); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ── Modal ── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: #fff; border-radius: 16px; padding: 2rem; max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+    .modal h2 { font-size: 1.15rem; font-weight: 700; color: #0a4a4e; margin-bottom: 1.25rem; }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: #f0f4f8; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 1rem; }
+
+    /* ── Alert ── */
+    .alert { padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.875rem; margin-bottom: 1rem; display: none; }
+    .alert.show { display: block; }
+    .alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
+    .alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+    /* ── Upload preview ── */
+    .img-preview { width: 80px; height: 60px; border-radius: 8px; object-fit: cover; background: #f0f4f8; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; overflow: hidden; }
+    .img-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+    .empty-state { text-align: center; padding: 3rem; color: #6c757d; }
+    .empty-state .emoji { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+    @media (max-width: 768px) {
+      .sidebar { width: 200px; }
+      .main { margin-left: 200px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo">🌊 Ancol <span>Admin</span></div>
+      <p>Panel Manajemen</p>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section">Utama</div>
+      <button class="nav-item active" onclick="showPanel('dashboard')">
+        <span class="icon">📊</span> Dashboard
+      </button>
+      <div class="nav-section">Kelola</div>
+      <button class="nav-item" onclick="showPanel('paket')">
+        <span class="icon">🏖️</span> Paket Wisata
+      </button>
+      <button class="nav-item" onclick="showPanel('booking')">
+        <span class="icon">📋</span> Daftar Booking
+      </button>
+      <button class="nav-item" onclick="showPanel('bukutamu')">
+        <span class="icon">✍️</span> Buku Tamu
+      </button>
+      <div class="nav-section">Website</div>
+      <a class="nav-item" href="/" target="_blank">
+        <span class="icon">🌐</span> Lihat Website
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="logout()">🚪 Keluar</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <h1 id="topbarTitle">Dashboard</h1>
+      <div class="admin-info">👤 Admin Ancol</div>
+    </div>
+
+    <div class="content">
+
+      <!-- PANEL: DASHBOARD -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon teal">🏖️</div>
+            <div>
+              <div class="stat-num" id="statPaket">–</div>
+              <div class="stat-label">Paket Wisata</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon coral">📋</div>
+            <div>
+              <div class="stat-num" id="statBooking">–</div>
+              <div class="stat-label">Total Booking</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon sand">✍️</div>
+            <div>
+              <div class="stat-num" id="statTamu">–</div>
+              <div class="stat-label">Entri Buku Tamu</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h3>📋 Booking Terbaru</h3></div>
+          <div class="card-body">
+            <table>
+              <thead><tr><th>Kode</th><th>Nama</th><th>Paket</th><th>Tgl Kunjungan</th><th>Total</th><th>Status</th></tr></thead>
+              <tbody id="tabelBookingDashboard"><tr><td colspan="6" class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: PAKET WISATA -->
+      <div class="panel" id="panel-paket">
+        <div class="card">
+          <div class="card-header">
+            <h3>🏖️ Kelola Paket Wisata</h3>
+          </div>
+          <div class="card-body">
+            <table>
+              <thead><tr><th>Gambar</th><th>Nama Paket</th><th>Harga</th><th>Durasi</th><th>Kapasitas</th><th>Aksi</th></tr></thead>
+              <tbody id="tabelPaket"><tr><td colspan="6" class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: BOOKING -->
+      <div class="panel" id="panel-booking">
+        <div class="card">
+          <div class="card-header"><h3>📋 Daftar Booking</h3></div>
+          <div class="card-body">
+            <table>
+              <thead><tr><th>Kode</th><th>Nama Pemesan</th><th>Paket</th><th>Jumlah</th><th>Tgl Kunjungan</th><th>Total Bayar</th><th>Status</th></tr></thead>
+              <tbody id="tabelBooking"><tr><td colspan="7" class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL: BUKU TAMU -->
+      <div class="panel" id="panel-bukutamu">
+        <div class="card">
+          <div class="card-header"><h3>✍️ Entri Buku Tamu</h3></div>
+          <div class="card-body">
+            <table>
+              <thead><tr><th>Nama</th><th>Asal Kota</th><th>Rating</th><th>Pesan</th><th>Tanggal</th><th>Aksi</th></tr></thead>
+              <tbody id="tabelBukuTamu"><tr><td colspan="6" class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL EDIT PAKET -->
+  <div class="modal-overlay" id="modalEditPaket">
+    <div class="modal">
+      <button class="modal-close" onclick="tutupModal()">✕</button>
+      <h2>✏️ Edit Paket Wisata</h2>
+      <div class="alert" id="alertEditPaket"></div>
+      <input type="hidden" id="editPaketId"/>
+      <div class="form-group">
+        <label>Nama Paket</label>
+        <input type="text" id="editNama"/>
+      </div>
+      <div class="form-group">
+        <label>Deskripsi</label>
+        <textarea id="editDeskripsi" rows="3"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Harga (Rp)</label>
+          <input type="number" id="editHarga" min="0"/>
+        </div>
+        <div class="form-group">
+          <label>Kapasitas (orang)</label>
+          <input type="number" id="editKapasitas" min="1"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Durasi</label>
+        <input type="text" id="editDurasi" placeholder="Contoh: 1 Hari (08.00 – 20.00)"/>
+      </div>
+      <div class="form-group">
+        <label>Fasilitas (pisahkan dengan koma)</label>
+        <textarea id="editFasilitas" rows="2" placeholder="Tiket masuk,Makan siang,Pemandu wisata"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Upload Gambar Baru (opsional)</label>
+        <input type="file" id="editGambar" accept="image/*"/>
+        <div style="margin-top:0.5rem;font-size:0.78rem;color:#6c757d;">Biarkan kosong jika tidak ingin mengganti gambar</div>
+      </div>
+      <button class="btn btn-primary" style="width:100%;padding:0.75rem;" onclick="simpanEditPaket()">💾 Simpan Perubahan</button>
+    </div>
+  </div>
+
+  <script>
+  // ── Panel Navigation ──
+  const panelTitles = { dashboard:'Dashboard', paket:'Kelola Paket Wisata', booking:'Daftar Booking', bukutamu:'Buku Tamu' };
+  function showPanel(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('panel-' + name).classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(n => { if (n.textContent.trim().toLowerCase().includes(panelTitles[name]?.split(' ')[0]?.toLowerCase())) n.classList.add('active'); });
+    document.getElementById('topbarTitle').textContent = panelTitles[name] || name;
+    loaders[name]?.();
+  }
+
+  const loaders = {
+    dashboard: loadDashboard,
+    paket: loadPaket,
+    booking: loadBooking,
+    bukutamu: loadBukuTamu
+  };
+
+  // ── Format helpers ──
+  function rupiah(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+  function tgl(s) { return new Date(s).toLocaleDateString('id-ID', {day:'numeric',month:'short',year:'numeric'}); }
+  function bintang(r) { return '★'.repeat(r) + '☆'.repeat(5-r); }
+
+  // ── Dashboard ──
+  async function loadDashboard() {
+    const [paket, booking, tamu] = await Promise.all([
+      fetch('/api/paket').then(r=>r.json()),
+      fetch('/admin/api/booking').then(r=>r.json()),
+      fetch('/api/buku-tamu').then(r=>r.json())
+    ]);
+    document.getElementById('statPaket').textContent = paket.data?.length || 0;
+    document.getElementById('statBooking').textContent = booking.data?.length || 0;
+    document.getElementById('statTamu').textContent = tamu.data?.length || 0;
+
+    const tbody = document.getElementById('tabelBookingDashboard');
+    const rows = (booking.data || []).slice(0,5);
+    if (!rows.length) { tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Belum ada booking</p></div></td></tr>'; return; }
+    tbody.innerHTML = rows.map(b => `
+      <tr>
+        <td><code style="font-size:0.75rem;background:#f0f4f8;padding:2px 6px;border-radius:4px;">${b.kode_booking}</code></td>
+        <td>${b.nama_pemesan}</td>
+        <td>${b.nama_paket}</td>
+        <td>${tgl(b.tanggal_kunjungan)}</td>
+        <td>${rupiah(b.total_bayar)}</td>
+        <td><span class="badge badge-warning">${b.status}</span></td>
+      </tr>`).join('');
+  }
+
+  // ── Paket ──
+  async function loadPaket() {
+    const res = await fetch('/api/paket');
+    const json = await res.json();
+    const tbody = document.getElementById('tabelPaket');
+    if (!json.data?.length) { tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Tidak ada paket</p></div></td></tr>'; return; }
+    tbody.innerHTML = json.data.map(p => `
+      <tr>
+        <td>
+          <div class="img-preview">
+            ${p.gambar && p.gambar !== 'paket-default.jpg'
+              ? `<img src="/uploads/${p.gambar}" alt="${p.nama}" onerror="this.parentElement.innerHTML='🏖️'"/>`
+              : '🏖️'}
+          </div>
+        </td>
+        <td><strong>${p.nama}</strong></td>
+        <td>${rupiah(p.harga)}</td>
+        <td style="font-size:0.8rem;color:#6c757d;">${p.durasi}</td>
+        <td>${p.kapasitas} orang</td>
+        <td>
+          <button class="btn btn-primary btn-sm" onclick="bukaEditPaket(${p.id})">✏️ Edit</button>
+        </td>
+      </tr>`).join('');
+  }
+
+  // ── Booking ──
+  async function loadBooking() {
+    const res = await fetch('/admin/api/booking');
+    const json = await res.json();
+    const tbody = document.getElementById('tabelBooking');
+    if (!json.data?.length) { tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="emoji">📭</div><p>Belum ada booking</p></div></td></tr>'; return; }
+    tbody.innerHTML = json.data.map(b => `
+      <tr>
+        <td><code style="font-size:0.72rem;background:#f0f4f8;padding:2px 6px;border-radius:4px;">${b.kode_booking}</code></td>
+        <td>
+          <div style="font-weight:600;">${b.nama_pemesan}</div>
+          <div style="font-size:0.78rem;color:#6c757d;">${b.email}</div>
+        </td>
+        <td>${b.nama_paket}</td>
+        <td style="text-align:center;">${b.jumlah_orang}</td>
+        <td>${tgl(b.tanggal_kunjungan)}</td>
+        <td style="font-weight:700;color:#0a4a4e;">${rupiah(b.total_bayar)}</td>
+        <td><span class="badge badge-warning">${b.status}</span></td>
+      </tr>`).join('');
+  }
+
+  // ── Buku Tamu ──
+  async function loadBukuTamu() {
+    const res = await fetch('/api/buku-tamu');
+    const json = await res.json();
+    const tbody = document.getElementById('tabelBukuTamu');
+    if (!json.data?.length) { tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Belum ada entri</p></div></td></tr>'; return; }
+    tbody.innerHTML = json.data.map(e => `
+      <tr>
+        <td><strong>${e.nama}</strong><br><span style="font-size:0.78rem;color:#6c757d;">${e.email}</span></td>
+        <td>${e.asal_kota}</td>
+        <td style="color:#f4b942;letter-spacing:1px;">${bintang(e.rating)}</td>
+        <td style="max-width:220px;font-size:0.85rem;color:#2d3748;">${e.pesan.length > 80 ? e.pesan.slice(0,80)+'…' : e.pesan}</td>
+        <td style="font-size:0.8rem;color:#6c757d;">${tgl(e.tanggal)}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" onclick="hapusBukuTamu(${e.id})">🗑️ Hapus</button>
+        </td>
+      </tr>`).join('');
+  }
+
+  // ── Edit Paket ──
+  let semuaPaket = [];
+  async function bukaEditPaket(id) {
+    const res = await fetch('/api/paket/' + id);
+    const json = await res.json();
+    const p = json.data;
+    document.getElementById('editPaketId').value = p.id;
+    document.getElementById('editNama').value = p.nama;
+    document.getElementById('editDeskripsi').value = p.deskripsi;
+    document.getElementById('editHarga').value = p.harga;
+    document.getElementById('editKapasitas').value = p.kapasitas;
+    document.getElementById('editDurasi').value = p.durasi;
+    document.getElementById('editFasilitas').value = p.fasilitas;
+    document.getElementById('editGambar').value = '';
+    document.getElementById('alertEditPaket').className = 'alert';
+    document.getElementById('modalEditPaket').classList.add('active');
+  }
+
+  function tutupModal() {
+    document.getElementById('modalEditPaket').classList.remove('active');
+  }
+
+  async function simpanEditPaket() {
+    const id = document.getElementById('editPaketId').value;
+    const alertEl = document.getElementById('alertEditPaket');
+    const gambarFile = document.getElementById('editGambar').files[0];
+
+    const formData = new FormData();
+    formData.append('nama', document.getElementById('editNama').value.trim());
+    formData.append('deskripsi', document.getElementById('editDeskripsi').value.trim());
+    formData.append('harga', document.getElementById('editHarga').value);
+    formData.append('kapasitas', document.getElementById('editKapasitas').value);
+    formData.append('durasi', document.getElementById('editDurasi').value.trim());
+    formData.append('fasilitas', document.getElementById('editFasilitas').value.trim());
+    if (gambarFile) formData.append('gambar', gambarFile);
+
+    try {
+      const res = await fetch('/admin/api/paket/' + id, { method: 'PUT', body: formData });
+      const json = await res.json();
+      if (json.success) {
+        alertEl.className = 'alert alert-success show';
+        alertEl.textContent = '✅ Paket berhasil diperbarui!';
+        setTimeout(() => { tutupModal(); loadPaket(); }, 1200);
+      } else {
+        alertEl.className = 'alert alert-error show';
+        alertEl.textContent = json.message || 'Gagal menyimpan.';
+      }
+    } catch (err) {
+      alertEl.className = 'alert alert-error show';
+      alertEl.textContent = 'Terjadi kesalahan.';
+    }
+  }
+
+  // ── Hapus Buku Tamu ──
+  async function hapusBukuTamu(id) {
+    if (!confirm('Yakin ingin menghapus entri ini?')) return;
+    const res = await fetch('/admin/api/buku-tamu/' + id, { method: 'DELETE' });
+    const json = await res.json();
+    if (json.success) loadBukuTamu();
+    else alert('Gagal menghapus: ' + json.message);
+  }
+
+  // ── Logout ──
+  async function logout() {
+    await fetch('/admin/api/logout', { method: 'POST' });
+    window.location.href = '/admin/login';
+  }
+
+  // ── Init ──
+  loadDashboard();
+
+  // Tutup modal saat klik overlay
+  document.getElementById('modalEditPaket').addEventListener('click', function(e) {
+    if (e.target === this) tutupModal();
+  });
+  </script>
+</body>
+</html>

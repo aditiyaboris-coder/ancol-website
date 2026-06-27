@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Admin – Ancol</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a4a4e 0%, #0d6b72 50%, #12939e 100%);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .login-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2.5rem;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .login-logo { text-align: center; margin-bottom: 2rem; }
+    .login-logo .icon { font-size: 3rem; margin-bottom: 0.5rem; }
+    .login-logo h1 { font-size: 1.4rem; color: #0a4a4e; font-weight: 700; }
+    .login-logo p { font-size: 0.85rem; color: #6c757d; margin-top: 0.25rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label { display: block; font-size: 0.875rem; font-weight: 600; color: #0a4a4e; margin-bottom: 0.5rem; }
+    .form-group input {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 2px solid #dee2e6; border-radius: 10px;
+      font-size: 0.925rem; font-family: inherit;
+      outline: none; transition: 0.2s;
+    }
+    .form-group input:focus { border-color: #12939e; box-shadow: 0 0 0 3px rgba(18,147,158,0.12); }
+    .btn-login {
+      width: 100%; padding: 0.85rem;
+      background: #0d6b72; color: #fff;
+      border: none; border-radius: 10px;
+      font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: 0.2s;
+      font-family: inherit;
+    }
+    .btn-login:hover { background: #0a4a4e; }
+    .alert-error {
+      background: #fee2e2; color: #991b1b;
+      border: 1px solid #fca5a5;
+      border-radius: 8px; padding: 0.75rem 1rem;
+      font-size: 0.875rem; margin-bottom: 1rem;
+      display: none;
+    }
+    .alert-error.show { display: block; }
+    .back-link { text-align: center; margin-top: 1.5rem; }
+    .back-link a { color: #6c757d; font-size: 0.85rem; text-decoration: none; }
+    .back-link a:hover { color: #0d6b72; }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="icon">🔐</div>
+      <h1>Panel Admin</h1>
+      <p>Wisata Pantai Ancol</p>
+    </div>
+    <div class="alert-error" id="alertError">Username atau password salah.</div>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Masukkan username" autocomplete="username"/>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Masukkan password" autocomplete="current-password"/>
+    </div>
+    <button class="btn-login" onclick="doLogin()">Masuk ke Dashboard</button>
+    <div class="back-link"><a href="/">← Kembali ke Website</a></div>
+  </div>
+
+  <script>
+    // Enter key support
+    document.getElementById('password').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doLogin();
+    });
+
+    async function doLogin() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const alertEl = document.getElementById('alertError');
+      alertEl.classList.remove('show');
+
+      if (!username || !password) {
+        alertEl.textContent = 'Username dan password wajib diisi.';
+        alertEl.classList.add('show');
+        return;
+      }
+
+      try {
+        const res = await fetch('/admin/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const json = await res.json();
+        if (json.success) {
+          window.location.href = '/admin/dashboard';
+        } else {
+          alertEl.textContent = json.message || 'Username atau password salah.';
+          alertEl.classList.add('show');
+        }
+      } catch (err) {
+        alertEl.textContent = 'Terjadi kesalahan, coba lagi.';
+        alertEl.classList.add('show');
+      }
+    }
+  </script>
+</body>
+</html>
