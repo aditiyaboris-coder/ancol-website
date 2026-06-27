@@ -9,145 +9,114 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; background: #f0f4f8; color: #1a2a2e; display: flex; min-height: 100vh; }
 
-    /* ── Sidebar ── */
-    .sidebar {
-      width: 240px; flex-shrink: 0;
-      background: #0a4a4e;
-      display: flex; flex-direction: column;
-      position: fixed; top: 0; left: 0; bottom: 0;
-      z-index: 100;
-    }
-    .sidebar-brand {
-      padding: 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
+    .sidebar { width: 240px; flex-shrink: 0; background: #0a4a4e; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; }
+    .sidebar-brand { padding: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .sidebar-brand .logo { font-size: 1.3rem; font-weight: 700; color: #e8d5a3; }
     .sidebar-brand .logo span { color: #fff; }
     .sidebar-brand p { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 0.2rem; }
     .sidebar-nav { flex: 1; padding: 1rem 0; overflow-y: auto; }
     .nav-section { padding: 0.5rem 1rem 0.25rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.35); }
-    .nav-item {
-      display: flex; align-items: center; gap: 0.75rem;
-      padding: 0.7rem 1.25rem;
-      color: rgba(255,255,255,0.75);
-      cursor: pointer; transition: 0.15s;
-      font-size: 0.875rem; font-weight: 500;
-      border: none; background: none; width: 100%; text-align: left;
-      text-decoration: none;
-    }
+    .nav-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 1.25rem; color: rgba(255,255,255,0.75); cursor: pointer; transition: 0.15s; font-size: 0.875rem; font-weight: 500; border: none; background: none; width: 100%; text-align: left; text-decoration: none; }
     .nav-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
     .nav-item.active { background: rgba(255,255,255,0.15); color: #e8d5a3; }
     .nav-item .icon { width: 20px; text-align: center; font-size: 1rem; }
-    .sidebar-footer {
-      padding: 1rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .btn-logout {
-      width: 100%; padding: 0.6rem; background: rgba(224,92,58,0.2);
-      color: #ff8a70; border: 1px solid rgba(224,92,58,0.3);
-      border-radius: 8px; cursor: pointer; font-size: 0.85rem;
-      font-weight: 600; font-family: inherit; transition: 0.15s;
-    }
+    .sidebar-footer { padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1); }
+    .btn-logout { width: 100%; padding: 0.6rem; background: rgba(224,92,58,0.2); color: #ff8a70; border: 1px solid rgba(224,92,58,0.3); border-radius: 8px; cursor: pointer; font-size: 0.85rem; font-weight: 600; font-family: inherit; transition: 0.15s; }
     .btn-logout:hover { background: rgba(224,92,58,0.35); }
 
-    /* ── Main Content ── */
     .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
-    .topbar {
-      background: #fff; padding: 1rem 2rem;
-      display: flex; align-items: center; justify-content: space-between;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      position: sticky; top: 0; z-index: 50;
-    }
+    .topbar { background: #fff; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 4px rgba(0,0,0,0.06); position: sticky; top: 0; z-index: 50; }
     .topbar h1 { font-size: 1.1rem; font-weight: 700; color: #0a4a4e; }
     .topbar .admin-info { font-size: 0.8rem; color: #6c757d; }
     .content { padding: 2rem; flex: 1; }
 
-    /* ── Panels ── */
     .panel { display: none; }
     .panel.active { display: block; }
 
-    /* ── Stats ── */
-    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
-    .stat-card {
-      background: #fff; border-radius: 14px; padding: 1.5rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .stat-icon { font-size: 2rem; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; border-radius: 12px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+    .stat-card { background: #fff; border-radius: 14px; padding: 1.25rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 1rem; }
+    .stat-icon { font-size: 1.8rem; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px; flex-shrink: 0; }
     .stat-icon.teal { background: #e0f5f7; }
     .stat-icon.coral { background: #fde8e3; }
     .stat-icon.sand { background: #fdf5e0; }
-    .stat-num { font-size: 1.8rem; font-weight: 800; color: #0a4a4e; line-height: 1; }
-    .stat-label { font-size: 0.8rem; color: #6c757d; margin-top: 0.2rem; }
+    .stat-icon.purple { background: #ede9fe; }
+    .stat-num { font-size: 1.7rem; font-weight: 800; color: #0a4a4e; line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: #6c757d; margin-top: 0.2rem; }
 
-    /* ── Tables ── */
     .card { background: #fff; border-radius: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; margin-bottom: 1.5rem; }
-    .card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #dee2e6; display: flex; align-items: center; justify-content: space-between; }
+    .card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #dee2e6; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
     .card-header h3 { font-size: 1rem; font-weight: 700; color: #0a4a4e; }
-    .card-body { padding: 0; }
     table { width: 100%; border-collapse: collapse; }
-    th { background: #f8f9fa; padding: 0.75rem 1rem; text-align: left; font-size: 0.8rem; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 0.05em; }
+    th { background: #f8f9fa; padding: 0.75rem 1rem; text-align: left; font-size: 0.78rem; font-weight: 700; color: #6c757d; text-transform: uppercase; letter-spacing: 0.05em; }
     td { padding: 0.875rem 1rem; font-size: 0.875rem; border-bottom: 1px solid #f0f4f8; vertical-align: middle; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: #f8fafc; }
 
-    /* ── Badges ── */
     .badge { padding: 0.25rem 0.65rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
-    .badge-success { background: #d1fae5; color: #065f46; }
     .badge-warning { background: #fef3c7; color: #92400e; }
-    .badge-info { background: #dbeafe; color: #1e40af; }
 
-    /* ── Buttons ── */
-    .btn { padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: 0.15s; }
+    .btn { padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; border: none; font-family: inherit; transition: 0.15s; display: inline-flex; align-items: center; gap: 0.35rem; }
     .btn-primary { background: #0d6b72; color: #fff; }
     .btn-primary:hover { background: #0a4a4e; }
     .btn-danger { background: #fee2e2; color: #991b1b; }
     .btn-danger:hover { background: #fecaca; }
     .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.775rem; }
+    .btn-full { width: 100%; justify-content: center; padding: 0.75rem; font-size: 0.9rem; }
 
-    /* ── Form ── */
     .form-group { margin-bottom: 1rem; }
     .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #0a4a4e; margin-bottom: 0.4rem; }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%; padding: 0.65rem 0.875rem;
-      border: 2px solid #dee2e6; border-radius: 8px;
-      font-size: 0.875rem; font-family: inherit; outline: none; transition: 0.2s;
-    }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.65rem 0.875rem; border: 2px solid #dee2e6; border-radius: 8px; font-size: 0.875rem; font-family: inherit; outline: none; transition: 0.2s; }
     .form-group input:focus, .form-group textarea:focus { border-color: #12939e; box-shadow: 0 0 0 3px rgba(18,147,158,0.1); }
-    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-group textarea { resize: vertical; min-height: 80px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-hint { font-size: 0.775rem; color: #6c757d; margin-top: 0.3rem; }
 
-    /* ── Modal ── */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; padding: 1rem; }
     .modal-overlay.active { display: flex; }
     .modal { background: #fff; border-radius: 16px; padding: 2rem; max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
     .modal h2 { font-size: 1.15rem; font-weight: 700; color: #0a4a4e; margin-bottom: 1.25rem; }
     .modal-close { position: absolute; top: 1rem; right: 1rem; background: #f0f4f8; border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 1rem; }
 
-    /* ── Alert ── */
     .alert { padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.875rem; margin-bottom: 1rem; display: none; }
     .alert.show { display: block; }
     .alert-success { background: #d1fae5; color: #065f46; border: 1px solid #6ee7b7; }
     .alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
 
-    /* ── Upload preview ── */
-    .img-preview { width: 80px; height: 60px; border-radius: 8px; object-fit: cover; background: #f0f4f8; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; overflow: hidden; }
-    .img-preview img { width: 100%; height: 100%; object-fit: cover; }
+    .img-preview-sm { width: 72px; height: 54px; border-radius: 6px; object-fit: cover; background: #f0f4f8; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; overflow: hidden; }
+    .img-preview-sm img { width: 100%; height: 100%; object-fit: cover; }
 
-    .empty-state { text-align: center; padding: 3rem; color: #6c757d; }
-    .empty-state .emoji { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    /* Galeri grid di admin */
+    .foto-admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; padding: 1.5rem; }
+    .foto-admin-item { border-radius: 10px; overflow: hidden; position: relative; aspect-ratio: 4/3; background: #f0f4f8; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .foto-admin-item img { width: 100%; height: 100%; object-fit: cover; }
+    .foto-admin-item .foto-actions { position: absolute; inset: 0; background: rgba(0,0,0,0.5); opacity: 0; transition: 0.2s; display: flex; align-items: center; justify-content: center; }
+    .foto-admin-item:hover .foto-actions { opacity: 1; }
+    .foto-admin-item .foto-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.75rem; padding: 0.4rem 0.6rem; }
+
+    .video-admin-list { padding: 0; }
+    .empty-state { text-align: center; padding: 2.5rem; color: #6c757d; }
+    .empty-state .emoji { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+    .upload-area { border: 2px dashed #dee2e6; border-radius: 10px; padding: 2rem; text-align: center; cursor: pointer; transition: 0.2s; }
+    .upload-area:hover { border-color: #12939e; background: #f0fafa; }
+    .upload-area input { display: none; }
+    .upload-area .upload-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .upload-area p { font-size: 0.875rem; color: #6c757d; }
+    .upload-area .upload-hint { font-size: 0.775rem; color: #adb5bd; margin-top: 0.25rem; }
+
+    .preview-upload { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+    .preview-thumb { width: 80px; height: 60px; border-radius: 6px; object-fit: cover; border: 2px solid #dee2e6; }
 
     @media (max-width: 768px) {
       .sidebar { width: 200px; }
       .main { margin-left: 200px; }
-      .stats-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
       .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="sidebar-brand">
       <div class="logo">🌊 Ancol <span>Admin</span></div>
@@ -155,113 +124,92 @@
     </div>
     <nav class="sidebar-nav">
       <div class="nav-section">Utama</div>
-      <button class="nav-item active" onclick="showPanel('dashboard')">
-        <span class="icon">📊</span> Dashboard
-      </button>
+      <button class="nav-item active" id="nav-dashboard" onclick="showPanel('dashboard')"><span class="icon">📊</span> Dashboard</button>
       <div class="nav-section">Kelola</div>
-      <button class="nav-item" onclick="showPanel('paket')">
-        <span class="icon">🏖️</span> Paket Wisata
-      </button>
-      <button class="nav-item" onclick="showPanel('booking')">
-        <span class="icon">📋</span> Daftar Booking
-      </button>
-      <button class="nav-item" onclick="showPanel('bukutamu')">
-        <span class="icon">✍️</span> Buku Tamu
-      </button>
+      <button class="nav-item" id="nav-paket" onclick="showPanel('paket')"><span class="icon">🏖️</span> Paket Wisata</button>
+      <button class="nav-item" id="nav-galeri" onclick="showPanel('galeri')"><span class="icon">🖼️</span> Galeri</button>
+      <button class="nav-item" id="nav-booking" onclick="showPanel('booking')"><span class="icon">📋</span> Daftar Booking</button>
+      <button class="nav-item" id="nav-bukutamu" onclick="showPanel('bukutamu')"><span class="icon">✍️</span> Buku Tamu</button>
       <div class="nav-section">Website</div>
-      <a class="nav-item" href="/" target="_blank">
-        <span class="icon">🌐</span> Lihat Website
-      </a>
+      <a class="nav-item" href="/" target="_blank"><span class="icon">🌐</span> Lihat Website</a>
+      <a class="nav-item" href="/galeri" target="_blank"><span class="icon">🖼️</span> Lihat Galeri</a>
     </nav>
     <div class="sidebar-footer">
       <button class="btn-logout" onclick="logout()">🚪 Keluar</button>
     </div>
   </aside>
 
-  <!-- MAIN -->
   <div class="main">
     <div class="topbar">
       <h1 id="topbarTitle">Dashboard</h1>
       <div class="admin-info">👤 Admin Ancol</div>
     </div>
-
     <div class="content">
 
-      <!-- PANEL: DASHBOARD -->
+      <!-- DASHBOARD -->
       <div class="panel active" id="panel-dashboard">
         <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon teal">🏖️</div>
-            <div>
-              <div class="stat-num" id="statPaket">–</div>
-              <div class="stat-label">Paket Wisata</div>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon coral">📋</div>
-            <div>
-              <div class="stat-num" id="statBooking">–</div>
-              <div class="stat-label">Total Booking</div>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon sand">✍️</div>
-            <div>
-              <div class="stat-num" id="statTamu">–</div>
-              <div class="stat-label">Entri Buku Tamu</div>
-            </div>
-          </div>
+          <div class="stat-card"><div class="stat-icon teal">🏖️</div><div><div class="stat-num" id="statPaket">–</div><div class="stat-label">Paket Wisata</div></div></div>
+          <div class="stat-card"><div class="stat-icon purple">🖼️</div><div><div class="stat-num" id="statFoto">–</div><div class="stat-label">Foto Galeri</div></div></div>
+          <div class="stat-card"><div class="stat-icon coral">📋</div><div><div class="stat-num" id="statBooking">–</div><div class="stat-label">Total Booking</div></div></div>
+          <div class="stat-card"><div class="stat-icon sand">✍️</div><div><div class="stat-num" id="statTamu">–</div><div class="stat-label">Buku Tamu</div></div></div>
         </div>
-
         <div class="card">
           <div class="card-header"><h3>📋 Booking Terbaru</h3></div>
-          <div class="card-body">
-            <table>
-              <thead><tr><th>Kode</th><th>Nama</th><th>Paket</th><th>Tgl Kunjungan</th><th>Total</th><th>Status</th></tr></thead>
-              <tbody id="tabelBookingDashboard"><tr><td colspan="6" class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></td></tr></tbody>
-            </table>
-          </div>
+          <table><thead><tr><th>Kode</th><th>Nama</th><th>Paket</th><th>Tgl Kunjungan</th><th>Total</th><th>Status</th></tr></thead>
+          <tbody id="tabelBookingDashboard"><tr><td colspan="6"><div class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></div></td></tr></tbody></table>
         </div>
       </div>
 
-      <!-- PANEL: PAKET WISATA -->
+      <!-- PAKET -->
       <div class="panel" id="panel-paket">
         <div class="card">
+          <div class="card-header"><h3>🏖️ Kelola Paket Wisata</h3></div>
+          <table><thead><tr><th>Gambar</th><th>Nama Paket</th><th>Harga</th><th>Durasi</th><th>Kapasitas</th><th>Aksi</th></tr></thead>
+          <tbody id="tabelPaket"><tr><td colspan="6"><div class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></div></td></tr></tbody></table>
+        </div>
+      </div>
+
+      <!-- GALERI -->
+      <div class="panel" id="panel-galeri">
+        <!-- FOTO -->
+        <div class="card">
           <div class="card-header">
-            <h3>🏖️ Kelola Paket Wisata</h3>
+            <h3>📸 Kelola Foto</h3>
+            <button class="btn btn-primary btn-sm" onclick="bukaModalUploadFoto()">+ Upload Foto</button>
           </div>
-          <div class="card-body">
-            <table>
-              <thead><tr><th>Gambar</th><th>Nama Paket</th><th>Harga</th><th>Durasi</th><th>Kapasitas</th><th>Aksi</th></tr></thead>
-              <tbody id="tabelPaket"><tr><td colspan="6" class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></td></tr></tbody>
-            </table>
+          <div id="fotoAdminContainer">
+            <div class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></div>
+          </div>
+        </div>
+        <!-- VIDEO -->
+        <div class="card">
+          <div class="card-header">
+            <h3>🎬 Kelola Video YouTube</h3>
+            <button class="btn btn-primary btn-sm" onclick="bukaModalTambahVideo()">+ Tambah Video</button>
+          </div>
+          <div class="video-admin-list">
+            <table><thead><tr><th>Judul</th><th>URL YouTube</th><th>Keterangan</th><th>Aksi</th></tr></thead>
+            <tbody id="tabelVideo"><tr><td colspan="4"><div class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></div></td></tr></tbody></table>
           </div>
         </div>
       </div>
 
-      <!-- PANEL: BOOKING -->
+      <!-- BOOKING -->
       <div class="panel" id="panel-booking">
         <div class="card">
           <div class="card-header"><h3>📋 Daftar Booking</h3></div>
-          <div class="card-body">
-            <table>
-              <thead><tr><th>Kode</th><th>Nama Pemesan</th><th>Paket</th><th>Jumlah</th><th>Tgl Kunjungan</th><th>Total Bayar</th><th>Status</th></tr></thead>
-              <tbody id="tabelBooking"><tr><td colspan="7" class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></td></tr></tbody>
-            </table>
-          </div>
+          <table><thead><tr><th>Kode</th><th>Nama Pemesan</th><th>Paket</th><th>Jumlah</th><th>Tgl Kunjungan</th><th>Total Bayar</th><th>Status</th></tr></thead>
+          <tbody id="tabelBooking"><tr><td colspan="7"><div class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></div></td></tr></tbody></table>
         </div>
       </div>
 
-      <!-- PANEL: BUKU TAMU -->
+      <!-- BUKU TAMU -->
       <div class="panel" id="panel-bukutamu">
         <div class="card">
           <div class="card-header"><h3>✍️ Entri Buku Tamu</h3></div>
-          <div class="card-body">
-            <table>
-              <thead><tr><th>Nama</th><th>Asal Kota</th><th>Rating</th><th>Pesan</th><th>Tanggal</th><th>Aksi</th></tr></thead>
-              <tbody id="tabelBukuTamu"><tr><td colspan="6" class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></td></tr></tbody>
-            </table>
-          </div>
+          <table><thead><tr><th>Nama</th><th>Asal Kota</th><th>Rating</th><th>Pesan</th><th>Tanggal</th><th>Aksi</th></tr></thead>
+          <tbody id="tabelBukuTamu"><tr><td colspan="6"><div class="empty-state"><div class="emoji">⏳</div><p>Memuat...</p></div></td></tr></tbody></table>
         </div>
       </div>
 
@@ -271,88 +219,126 @@
   <!-- MODAL EDIT PAKET -->
   <div class="modal-overlay" id="modalEditPaket">
     <div class="modal">
-      <button class="modal-close" onclick="tutupModal()">✕</button>
+      <button class="modal-close" onclick="tutupModal('modalEditPaket')">✕</button>
       <h2>✏️ Edit Paket Wisata</h2>
       <div class="alert" id="alertEditPaket"></div>
       <input type="hidden" id="editPaketId"/>
-      <div class="form-group">
-        <label>Nama Paket</label>
-        <input type="text" id="editNama"/>
-      </div>
-      <div class="form-group">
-        <label>Deskripsi</label>
-        <textarea id="editDeskripsi" rows="3"></textarea>
-      </div>
+      <div class="form-group"><label>Nama Paket</label><input type="text" id="editNama"/></div>
+      <div class="form-group"><label>Deskripsi</label><textarea id="editDeskripsi" rows="3"></textarea></div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Harga (Rp)</label>
-          <input type="number" id="editHarga" min="0"/>
-        </div>
-        <div class="form-group">
-          <label>Kapasitas (orang)</label>
-          <input type="number" id="editKapasitas" min="1"/>
-        </div>
+        <div class="form-group"><label>Harga (Rp)</label><input type="number" id="editHarga" min="0"/></div>
+        <div class="form-group"><label>Kapasitas (orang)</label><input type="number" id="editKapasitas" min="1"/></div>
       </div>
-      <div class="form-group">
-        <label>Durasi</label>
-        <input type="text" id="editDurasi" placeholder="Contoh: 1 Hari (08.00 – 20.00)"/>
-      </div>
-      <div class="form-group">
-        <label>Fasilitas (pisahkan dengan koma)</label>
-        <textarea id="editFasilitas" rows="2" placeholder="Tiket masuk,Makan siang,Pemandu wisata"></textarea>
-      </div>
+      <div class="form-group"><label>Durasi</label><input type="text" id="editDurasi"/></div>
+      <div class="form-group"><label>Fasilitas (pisahkan koma)</label><textarea id="editFasilitas" rows="2"></textarea></div>
       <div class="form-group">
         <label>Upload Gambar Baru (opsional)</label>
         <input type="file" id="editGambar" accept="image/*"/>
-        <div style="margin-top:0.5rem;font-size:0.78rem;color:#6c757d;">Biarkan kosong jika tidak ingin mengganti gambar</div>
+        <div class="form-hint">Kosongkan jika tidak ingin mengganti gambar</div>
       </div>
-      <button class="btn btn-primary" style="width:100%;padding:0.75rem;" onclick="simpanEditPaket()">💾 Simpan Perubahan</button>
+      <button class="btn btn-primary btn-full" onclick="simpanEditPaket()">💾 Simpan Perubahan</button>
+    </div>
+  </div>
+
+  <!-- MODAL UPLOAD FOTO -->
+  <div class="modal-overlay" id="modalUploadFoto">
+    <div class="modal">
+      <button class="modal-close" onclick="tutupModal('modalUploadFoto')">✕</button>
+      <h2>📸 Upload Foto Galeri</h2>
+      <div class="alert" id="alertUploadFoto"></div>
+      <div class="form-group">
+        <label>Pilih Foto</label>
+        <div class="upload-area" onclick="document.getElementById('inputFoto').click()">
+          <input type="file" id="inputFoto" accept="image/*" multiple onchange="previewFoto(this)"/>
+          <div class="upload-icon">📷</div>
+          <p>Klik untuk pilih foto</p>
+          <div class="upload-hint">JPG, PNG, WebP — maks. 5MB per file. Bisa pilih banyak sekaligus.</div>
+        </div>
+        <div class="preview-upload" id="previewFotoContainer"></div>
+      </div>
+      <div class="form-group">
+        <label>Judul Foto</label>
+        <input type="text" id="judulFoto" placeholder="Contoh: Pantai Ancol sore hari"/>
+        <div class="form-hint">Untuk multi-upload, judul akan diberi nomor otomatis</div>
+      </div>
+      <div class="form-group">
+        <label>Keterangan (opsional)</label>
+        <textarea id="keteranganFoto" rows="2" placeholder="Deskripsi singkat foto..."></textarea>
+      </div>
+      <button class="btn btn-primary btn-full" id="btnUploadFoto" onclick="uploadFoto()">📤 Upload Foto</button>
+    </div>
+  </div>
+
+  <!-- MODAL TAMBAH VIDEO -->
+  <div class="modal-overlay" id="modalTambahVideo">
+    <div class="modal">
+      <button class="modal-close" onclick="tutupModal('modalTambahVideo')">✕</button>
+      <h2>🎬 Tambah Video YouTube</h2>
+      <div class="alert" id="alertTambahVideo"></div>
+      <div class="form-group">
+        <label>Judul Video</label>
+        <input type="text" id="judulVideo" placeholder="Contoh: Tour Pantai Ancol 2024"/>
+      </div>
+      <div class="form-group">
+        <label>URL YouTube</label>
+        <input type="url" id="urlVideo" placeholder="https://www.youtube.com/watch?v=..."/>
+        <div class="form-hint">Paste link YouTube biasa, contoh: https://youtu.be/dQw4w9WgXcQ</div>
+      </div>
+      <div class="form-group">
+        <label>Keterangan (opsional)</label>
+        <textarea id="keteranganVideo" rows="2" placeholder="Deskripsi singkat video..."></textarea>
+      </div>
+      <button class="btn btn-primary btn-full" onclick="tambahVideo()">➕ Tambah Video</button>
     </div>
   </div>
 
   <script>
+  // ── Helpers ──
+  function rupiah(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+  function tgl(s) { return new Date(s).toLocaleDateString('id-ID', {day:'numeric',month:'short',year:'numeric'}); }
+  function bintang(r) { return '★'.repeat(r)+'☆'.repeat(5-r); }
+
   // ── Panel Navigation ──
-  const panelTitles = { dashboard:'Dashboard', paket:'Kelola Paket Wisata', booking:'Daftar Booking', bukutamu:'Buku Tamu' };
+  const panelTitles = { dashboard:'Dashboard', paket:'Kelola Paket Wisata', galeri:'Kelola Galeri', booking:'Daftar Booking', bukutamu:'Buku Tamu' };
+  const loaders = { dashboard:loadDashboard, paket:loadPaket, galeri:loadGaleri, booking:loadBooking, bukutamu:loadBukuTamu };
+
   function showPanel(name) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    document.getElementById('panel-' + name).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(n => { if (n.textContent.trim().toLowerCase().includes(panelTitles[name]?.split(' ')[0]?.toLowerCase())) n.classList.add('active'); });
+    document.querySelectorAll('.nav-item[id]').forEach(n => n.classList.remove('active'));
+    document.getElementById('panel-'+name).classList.add('active');
+    const navEl = document.getElementById('nav-'+name);
+    if (navEl) navEl.classList.add('active');
     document.getElementById('topbarTitle').textContent = panelTitles[name] || name;
     loaders[name]?.();
   }
 
-  const loaders = {
-    dashboard: loadDashboard,
-    paket: loadPaket,
-    booking: loadBooking,
-    bukutamu: loadBukuTamu
-  };
+  function tutupModal(id) { document.getElementById(id).classList.remove('active'); }
 
-  // ── Format helpers ──
-  function rupiah(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
-  function tgl(s) { return new Date(s).toLocaleDateString('id-ID', {day:'numeric',month:'short',year:'numeric'}); }
-  function bintang(r) { return '★'.repeat(r) + '☆'.repeat(5-r); }
+  // Tutup modal klik overlay
+  document.querySelectorAll('.modal-overlay').forEach(el => {
+    el.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); });
+  });
 
   // ── Dashboard ──
   async function loadDashboard() {
-    const [paket, booking, tamu] = await Promise.all([
+    const [paket, booking, tamu, foto] = await Promise.all([
       fetch('/api/paket').then(r=>r.json()),
       fetch('/admin/api/booking').then(r=>r.json()),
-      fetch('/api/buku-tamu').then(r=>r.json())
+      fetch('/api/buku-tamu').then(r=>r.json()),
+      fetch('/api/galeri/foto').then(r=>r.json())
     ]);
     document.getElementById('statPaket').textContent = paket.data?.length || 0;
+    document.getElementById('statFoto').textContent = foto.data?.length || 0;
     document.getElementById('statBooking').textContent = booking.data?.length || 0;
     document.getElementById('statTamu').textContent = tamu.data?.length || 0;
 
+    const rows = (booking.data||[]).slice(0,5);
     const tbody = document.getElementById('tabelBookingDashboard');
-    const rows = (booking.data || []).slice(0,5);
-    if (!rows.length) { tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Belum ada booking</p></div></td></tr>'; return; }
-    tbody.innerHTML = rows.map(b => `
+    if (!rows.length) { tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Belum ada booking</p></div></td></tr>'; return; }
+    tbody.innerHTML = rows.map(b=>`
       <tr>
-        <td><code style="font-size:0.75rem;background:#f0f4f8;padding:2px 6px;border-radius:4px;">${b.kode_booking}</code></td>
-        <td>${b.nama_pemesan}</td>
-        <td>${b.nama_paket}</td>
+        <td><code style="font-size:0.72rem;background:#f0f4f8;padding:2px 6px;border-radius:4px;">${b.kode_booking}</code></td>
+        <td>${b.nama_pemesan}</td><td>${b.nama_paket}</td>
         <td>${tgl(b.tanggal_kunjungan)}</td>
         <td>${rupiah(b.total_bayar)}</td>
         <td><span class="badge badge-warning">${b.status}</span></td>
@@ -364,70 +350,179 @@
     const res = await fetch('/api/paket');
     const json = await res.json();
     const tbody = document.getElementById('tabelPaket');
-    if (!json.data?.length) { tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Tidak ada paket</p></div></td></tr>'; return; }
-    tbody.innerHTML = json.data.map(p => `
+    if (!json.data?.length) { tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Tidak ada paket</p></div></td></tr>'; return; }
+    tbody.innerHTML = json.data.map(p=>`
       <tr>
-        <td>
-          <div class="img-preview">
-            ${p.gambar && p.gambar !== 'paket-default.jpg'
-              ? `<img src="/uploads/${p.gambar}" alt="${p.nama}" onerror="this.parentElement.innerHTML='🏖️'"/>`
-              : '🏖️'}
-          </div>
-        </td>
+        <td><div class="img-preview-sm">${p.gambar&&p.gambar!=='paket-default.jpg'?`<img src="/uploads/${p.gambar}" onerror="this.parentElement.innerHTML='🏖️'"/>`:'🏖️'}</div></td>
         <td><strong>${p.nama}</strong></td>
         <td>${rupiah(p.harga)}</td>
         <td style="font-size:0.8rem;color:#6c757d;">${p.durasi}</td>
         <td>${p.kapasitas} orang</td>
-        <td>
-          <button class="btn btn-primary btn-sm" onclick="bukaEditPaket(${p.id})">✏️ Edit</button>
-        </td>
+        <td><button class="btn btn-primary btn-sm" onclick="bukaEditPaket(${p.id})">✏️ Edit</button></td>
       </tr>`).join('');
   }
 
-  // ── Booking ──
-  async function loadBooking() {
-    const res = await fetch('/admin/api/booking');
-    const json = await res.json();
-    const tbody = document.getElementById('tabelBooking');
-    if (!json.data?.length) { tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="emoji">📭</div><p>Belum ada booking</p></div></td></tr>'; return; }
-    tbody.innerHTML = json.data.map(b => `
-      <tr>
-        <td><code style="font-size:0.72rem;background:#f0f4f8;padding:2px 6px;border-radius:4px;">${b.kode_booking}</code></td>
-        <td>
-          <div style="font-weight:600;">${b.nama_pemesan}</div>
-          <div style="font-size:0.78rem;color:#6c757d;">${b.email}</div>
-        </td>
-        <td>${b.nama_paket}</td>
-        <td style="text-align:center;">${b.jumlah_orang}</td>
-        <td>${tgl(b.tanggal_kunjungan)}</td>
-        <td style="font-weight:700;color:#0a4a4e;">${rupiah(b.total_bayar)}</td>
-        <td><span class="badge badge-warning">${b.status}</span></td>
-      </tr>`).join('');
+  // ── Galeri ──
+  async function loadGaleri() {
+    loadFotoAdmin();
+    loadVideoAdmin();
   }
 
-  // ── Buku Tamu ──
-  async function loadBukuTamu() {
-    const res = await fetch('/api/buku-tamu');
+  async function loadFotoAdmin() {
+    const container = document.getElementById('fotoAdminContainer');
+    try {
+      const res = await fetch('/api/galeri/foto');
+      const json = await res.json();
+      if (!json.data?.length) {
+        container.innerHTML = '<div class="empty-state"><div class="emoji">📷</div><p>Belum ada foto. Klik "+ Upload Foto" untuk menambahkan.</p></div>';
+        return;
+      }
+      container.innerHTML = `<div class="foto-admin-grid">${json.data.map(f=>`
+        <div class="foto-admin-item">
+          <img src="/uploads/${f.filename}" alt="${f.judul}" onerror="this.src=''" loading="lazy"/>
+          <div class="foto-caption">${f.judul}</div>
+          <div class="foto-actions">
+            <button class="btn btn-danger btn-sm" onclick="hapusFoto(${f.id})">🗑️ Hapus</button>
+          </div>
+        </div>`).join('')}</div>`;
+    } catch {
+      container.innerHTML = '<div class="empty-state"><div class="emoji">⚠️</div><p>Gagal memuat foto.</p></div>';
+    }
+  }
+
+  async function loadVideoAdmin() {
+    const tbody = document.getElementById('tabelVideo');
+    try {
+      const res = await fetch('/api/galeri/video');
+      const json = await res.json();
+      if (!json.data?.length) { tbody.innerHTML='<tr><td colspan="4"><div class="empty-state"><div class="emoji">🎬</div><p>Belum ada video. Klik "+ Tambah Video" untuk menambahkan.</p></div></td></tr>'; return; }
+      tbody.innerHTML = json.data.map(v=>`
+        <tr>
+          <td><strong>${v.judul}</strong></td>
+          <td><a href="${v.youtube_url}" target="_blank" style="color:#0d6b72;font-size:0.8rem;">${v.youtube_url.slice(0,40)}...</a></td>
+          <td style="font-size:0.8rem;color:#6c757d;">${v.keterangan||'–'}</td>
+          <td><button class="btn btn-danger btn-sm" onclick="hapusVideo(${v.id})">🗑️ Hapus</button></td>
+        </tr>`).join('');
+    } catch {
+      tbody.innerHTML='<tr><td colspan="4"><div class="empty-state"><div class="emoji">⚠️</div><p>Gagal memuat video.</p></div></td></tr>';
+    }
+  }
+
+  // ── Upload Foto ──
+  function bukaModalUploadFoto() {
+    document.getElementById('inputFoto').value = '';
+    document.getElementById('judulFoto').value = '';
+    document.getElementById('keteranganFoto').value = '';
+    document.getElementById('previewFotoContainer').innerHTML = '';
+    document.getElementById('alertUploadFoto').className = 'alert';
+    document.getElementById('modalUploadFoto').classList.add('active');
+  }
+
+  function previewFoto(input) {
+    const container = document.getElementById('previewFotoContainer');
+    container.innerHTML = '';
+    [...input.files].forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = 'preview-thumb';
+        container.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function uploadFoto() {
+    const alertEl = document.getElementById('alertUploadFoto');
+    const files = document.getElementById('inputFoto').files;
+    const judul = document.getElementById('judulFoto').value.trim();
+    const keterangan = document.getElementById('keteranganFoto').value.trim();
+
+    if (!files.length) { alertEl.className='alert alert-error show'; alertEl.textContent='Pilih minimal satu foto.'; return; }
+    if (!judul) { alertEl.className='alert alert-error show'; alertEl.textContent='Judul foto wajib diisi.'; return; }
+
+    const btn = document.getElementById('btnUploadFoto');
+    btn.disabled = true; btn.textContent = '⏳ Mengupload...';
+
+    let berhasil = 0;
+    for (let i = 0; i < files.length; i++) {
+      const fd = new FormData();
+      fd.append('foto', files[i]);
+      fd.append('judul', files.length > 1 ? `${judul} ${i+1}` : judul);
+      fd.append('keterangan', keterangan);
+      try {
+        const res = await fetch('/admin/api/galeri/foto', { method:'POST', body:fd });
+        const json = await res.json();
+        if (json.success) berhasil++;
+      } catch {}
+    }
+
+    btn.disabled = false; btn.textContent = '📤 Upload Foto';
+    if (berhasil > 0) {
+      alertEl.className = 'alert alert-success show';
+      alertEl.textContent = `✅ ${berhasil} foto berhasil diupload!`;
+      setTimeout(() => { tutupModal('modalUploadFoto'); loadFotoAdmin(); loadDashboard(); }, 1200);
+    } else {
+      alertEl.className = 'alert alert-error show';
+      alertEl.textContent = 'Gagal mengupload foto.';
+    }
+  }
+
+  async function hapusFoto(id) {
+    if (!confirm('Yakin ingin menghapus foto ini?')) return;
+    const res = await fetch('/admin/api/galeri/foto/'+id, {method:'DELETE'});
     const json = await res.json();
-    const tbody = document.getElementById('tabelBukuTamu');
-    if (!json.data?.length) { tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Belum ada entri</p></div></td></tr>'; return; }
-    tbody.innerHTML = json.data.map(e => `
-      <tr>
-        <td><strong>${e.nama}</strong><br><span style="font-size:0.78rem;color:#6c757d;">${e.email}</span></td>
-        <td>${e.asal_kota}</td>
-        <td style="color:#f4b942;letter-spacing:1px;">${bintang(e.rating)}</td>
-        <td style="max-width:220px;font-size:0.85rem;color:#2d3748;">${e.pesan.length > 80 ? e.pesan.slice(0,80)+'…' : e.pesan}</td>
-        <td style="font-size:0.8rem;color:#6c757d;">${tgl(e.tanggal)}</td>
-        <td>
-          <button class="btn btn-danger btn-sm" onclick="hapusBukuTamu(${e.id})">🗑️ Hapus</button>
-        </td>
-      </tr>`).join('');
+    if (json.success) { loadFotoAdmin(); loadDashboard(); }
+    else alert('Gagal menghapus: ' + json.message);
+  }
+
+  // ── Tambah Video ──
+  function bukaModalTambahVideo() {
+    document.getElementById('judulVideo').value = '';
+    document.getElementById('urlVideo').value = '';
+    document.getElementById('keteranganVideo').value = '';
+    document.getElementById('alertTambahVideo').className = 'alert';
+    document.getElementById('modalTambahVideo').classList.add('active');
+  }
+
+  async function tambahVideo() {
+    const alertEl = document.getElementById('alertTambahVideo');
+    const judul = document.getElementById('judulVideo').value.trim();
+    const url = document.getElementById('urlVideo').value.trim();
+    const keterangan = document.getElementById('keteranganVideo').value.trim();
+
+    if (!judul || !url) { alertEl.className='alert alert-error show'; alertEl.textContent='Judul dan URL wajib diisi.'; return; }
+    if (!url.includes('youtube') && !url.includes('youtu.be')) { alertEl.className='alert alert-error show'; alertEl.textContent='URL harus berupa link YouTube yang valid.'; return; }
+
+    try {
+      const res = await fetch('/admin/api/galeri/video', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ judul, youtube_url: url, keterangan })
+      });
+      const json = await res.json();
+      if (json.success) {
+        alertEl.className = 'alert alert-success show';
+        alertEl.textContent = '✅ Video berhasil ditambahkan!';
+        setTimeout(() => { tutupModal('modalTambahVideo'); loadVideoAdmin(); }, 1000);
+      } else {
+        alertEl.className = 'alert alert-error show';
+        alertEl.textContent = json.message || 'Gagal menambahkan video.';
+      }
+    } catch { alertEl.className='alert alert-error show'; alertEl.textContent='Terjadi kesalahan.'; }
+  }
+
+  async function hapusVideo(id) {
+    if (!confirm('Yakin ingin menghapus video ini?')) return;
+    const res = await fetch('/admin/api/galeri/video/'+id, {method:'DELETE'});
+    const json = await res.json();
+    if (json.success) loadVideoAdmin();
+    else alert('Gagal menghapus: ' + json.message);
   }
 
   // ── Edit Paket ──
-  let semuaPaket = [];
   async function bukaEditPaket(id) {
-    const res = await fetch('/api/paket/' + id);
+    const res = await fetch('/api/paket/'+id);
     const json = await res.json();
     const p = json.data;
     document.getElementById('editPaketId').value = p.id;
@@ -442,63 +537,79 @@
     document.getElementById('modalEditPaket').classList.add('active');
   }
 
-  function tutupModal() {
-    document.getElementById('modalEditPaket').classList.remove('active');
-  }
-
   async function simpanEditPaket() {
     const id = document.getElementById('editPaketId').value;
     const alertEl = document.getElementById('alertEditPaket');
+    const fd = new FormData();
+    fd.append('nama', document.getElementById('editNama').value.trim());
+    fd.append('deskripsi', document.getElementById('editDeskripsi').value.trim());
+    fd.append('harga', document.getElementById('editHarga').value);
+    fd.append('kapasitas', document.getElementById('editKapasitas').value);
+    fd.append('durasi', document.getElementById('editDurasi').value.trim());
+    fd.append('fasilitas', document.getElementById('editFasilitas').value.trim());
     const gambarFile = document.getElementById('editGambar').files[0];
-
-    const formData = new FormData();
-    formData.append('nama', document.getElementById('editNama').value.trim());
-    formData.append('deskripsi', document.getElementById('editDeskripsi').value.trim());
-    formData.append('harga', document.getElementById('editHarga').value);
-    formData.append('kapasitas', document.getElementById('editKapasitas').value);
-    formData.append('durasi', document.getElementById('editDurasi').value.trim());
-    formData.append('fasilitas', document.getElementById('editFasilitas').value.trim());
-    if (gambarFile) formData.append('gambar', gambarFile);
+    if (gambarFile) fd.append('gambar', gambarFile);
 
     try {
-      const res = await fetch('/admin/api/paket/' + id, { method: 'PUT', body: formData });
+      const res = await fetch('/admin/api/paket/'+id, {method:'PUT', body:fd});
       const json = await res.json();
       if (json.success) {
-        alertEl.className = 'alert alert-success show';
-        alertEl.textContent = '✅ Paket berhasil diperbarui!';
-        setTimeout(() => { tutupModal(); loadPaket(); }, 1200);
-      } else {
-        alertEl.className = 'alert alert-error show';
-        alertEl.textContent = json.message || 'Gagal menyimpan.';
-      }
-    } catch (err) {
-      alertEl.className = 'alert alert-error show';
-      alertEl.textContent = 'Terjadi kesalahan.';
-    }
+        alertEl.className='alert alert-success show'; alertEl.textContent='✅ Berhasil disimpan!';
+        setTimeout(() => { tutupModal('modalEditPaket'); loadPaket(); }, 1000);
+      } else { alertEl.className='alert alert-error show'; alertEl.textContent=json.message||'Gagal.'; }
+    } catch { alertEl.className='alert alert-error show'; alertEl.textContent='Terjadi kesalahan.'; }
   }
 
-  // ── Hapus Buku Tamu ──
+  // ── Booking ──
+  async function loadBooking() {
+    const res = await fetch('/admin/api/booking');
+    const json = await res.json();
+    const tbody = document.getElementById('tabelBooking');
+    if (!json.data?.length) { tbody.innerHTML='<tr><td colspan="7"><div class="empty-state"><div class="emoji">📭</div><p>Belum ada booking</p></div></td></tr>'; return; }
+    tbody.innerHTML = json.data.map(b=>`
+      <tr>
+        <td><code style="font-size:0.72rem;background:#f0f4f8;padding:2px 6px;border-radius:4px;">${b.kode_booking}</code></td>
+        <td><div style="font-weight:600;">${b.nama_pemesan}</div><div style="font-size:0.78rem;color:#6c757d;">${b.email}</div></td>
+        <td>${b.nama_paket}</td>
+        <td style="text-align:center;">${b.jumlah_orang}</td>
+        <td>${tgl(b.tanggal_kunjungan)}</td>
+        <td style="font-weight:700;color:#0a4a4e;">${rupiah(b.total_bayar)}</td>
+        <td><span class="badge badge-warning">${b.status}</span></td>
+      </tr>`).join('');
+  }
+
+  // ── Buku Tamu ──
+  async function loadBukuTamu() {
+    const res = await fetch('/api/buku-tamu');
+    const json = await res.json();
+    const tbody = document.getElementById('tabelBukuTamu');
+    if (!json.data?.length) { tbody.innerHTML='<tr><td colspan="6"><div class="empty-state"><div class="emoji">📭</div><p>Belum ada entri</p></div></td></tr>'; return; }
+    tbody.innerHTML = json.data.map(e=>`
+      <tr>
+        <td><strong>${e.nama}</strong><br><span style="font-size:0.78rem;color:#6c757d;">${e.email}</span></td>
+        <td>${e.asal_kota}</td>
+        <td style="color:#f4b942;letter-spacing:1px;">${bintang(e.rating)}</td>
+        <td style="max-width:200px;font-size:0.85rem;">${e.pesan.length>80?e.pesan.slice(0,80)+'…':e.pesan}</td>
+        <td style="font-size:0.8rem;color:#6c757d;">${tgl(e.tanggal)}</td>
+        <td><button class="btn btn-danger btn-sm" onclick="hapusBukuTamu(${e.id})">🗑️ Hapus</button></td>
+      </tr>`).join('');
+  }
+
   async function hapusBukuTamu(id) {
-    if (!confirm('Yakin ingin menghapus entri ini?')) return;
-    const res = await fetch('/admin/api/buku-tamu/' + id, { method: 'DELETE' });
+    if (!confirm('Yakin hapus entri ini?')) return;
+    const res = await fetch('/admin/api/buku-tamu/'+id, {method:'DELETE'});
     const json = await res.json();
     if (json.success) loadBukuTamu();
-    else alert('Gagal menghapus: ' + json.message);
+    else alert('Gagal: '+json.message);
   }
 
-  // ── Logout ──
   async function logout() {
-    await fetch('/admin/api/logout', { method: 'POST' });
+    await fetch('/admin/api/logout', {method:'POST'});
     window.location.href = '/admin/login';
   }
 
-  // ── Init ──
+  // Init
   loadDashboard();
-
-  // Tutup modal saat klik overlay
-  document.getElementById('modalEditPaket').addEventListener('click', function(e) {
-    if (e.target === this) tutupModal();
-  });
   </script>
 </body>
 </html>

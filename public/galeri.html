@@ -5,6 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Galeri – Wisata Pantai Ancol</title>
   <link rel="stylesheet" href="/css/style.css"/>
+  <style>
+    .galeri-foto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .foto-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      position: relative;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    .foto-item:hover { transform: scale(1.02); box-shadow: var(--shadow-lg); }
+    .foto-item img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .foto-item .foto-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%);
+      opacity: 0; transition: var(--transition);
+      display: flex; align-items: flex-end; padding: 1rem;
+    }
+    .foto-item:hover .foto-overlay { opacity: 1; }
+    .foto-overlay span { color: #fff; font-size: 0.875rem; font-weight: 600; }
+    .foto-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .video-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: var(--white);
+      transition: var(--transition);
+    }
+    .video-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .video-embed {
+      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+      background: #000;
+    }
+    .video-embed iframe {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+    }
+    .video-info { padding: 1rem; }
+    .video-info h4 { font-family: var(--font-display); color: var(--teal-deep); margin-bottom: 0.3rem; font-size: 1rem; }
+    .video-info p { font-size: 0.825rem; color: var(--gray-600); }
+
+    /* Lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 3000;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 8px; object-fit: contain; }
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: rgba(255,255,255,0.15); border: none; color: #fff;
+      width: 44px; height: 44px; border-radius: 50%; font-size: 1.3rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .lightbox-caption {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,0.8); font-size: 0.9rem; text-align: center;
+    }
+
+    .empty-galeri {
+      text-align: center; padding: 3rem; color: var(--gray-600);
+      background: var(--gray-100); border-radius: var(--radius-lg);
+    }
+    .empty-galeri .icon { font-size: 3rem; margin-bottom: 0.75rem; }
+  </style>
 </head>
 <body>
 
@@ -24,55 +105,44 @@
   </nav>
 
   <div class="page-hero">
-    <h1>Galeri Foto</h1>
+    <h1>Galeri Foto & Video</h1>
     <p>Sekilas keindahan dan keseruan Taman Impian Jaya Ancol</p>
   </div>
 
+  <!-- FOTO -->
   <section class="section">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">Momen Terbaik</span>
-        <h2>Keindahan Ancol dalam Gambar</h2>
-        <p>Setiap sudut Ancol menyimpan cerita dan keindahan yang siap diabadikan</p>
+        <span class="section-tag">Foto</span>
+        <h2>Momen Terbaik di Ancol</h2>
+        <p>Klik foto untuk melihat ukuran penuh</p>
       </div>
-
-      <div class="galeri-grid">
-        <div class="galeri-item wide tall" title="Pantai Ancol saat sore hari">🌊</div>
-        <div class="galeri-item" title="Wahana Dufan">🎢</div>
-        <div class="galeri-item" title="Sea World">🦈</div>
-        <div class="galeri-item" title="Pasar Seni Ancol">🎨</div>
-        <div class="galeri-item wide" title="Sunset di Pantai Ancol">🌅</div>
-        <div class="galeri-item" title="Marina Ancol">⛵</div>
-        <div class="galeri-item" title="Atlantis Water Adventure">💦</div>
-        <div class="galeri-item" title="Gelanggang Samudra">🐬</div>
-        <div class="galeri-item wide" title="Panorama Kawasan Ancol">🏙️</div>
+      <div id="fotoContainer" class="galeri-foto-grid">
+        <div class="loading">Memuat foto…</div>
       </div>
+    </div>
+  </section>
 
-      <div class="section-header" style="margin-top:4rem;">
+  <!-- VIDEO -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
         <span class="section-tag">Video</span>
         <h2>Video Tour Ancol</h2>
         <p>Saksikan keindahan Ancol dari berbagai sudut pandang</p>
       </div>
-
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
-        <div style="background:linear-gradient(135deg,var(--teal-deep),var(--teal-light));border-radius:var(--radius-lg);padding:3rem;text-align:center;color:var(--white);">
-          <div style="font-size:3rem;margin-bottom:1rem;">▶️</div>
-          <h3 style="font-family:var(--font-display);margin-bottom:0.5rem;">Tour Pantai Ancol</h3>
-          <p style="opacity:0.8;font-size:0.875rem;">Video tour mengelilingi kawasan pantai Ancol dari ujung ke ujung</p>
-        </div>
-        <div style="background:linear-gradient(135deg,#e05c3a,#f4a261);border-radius:var(--radius-lg);padding:3rem;text-align:center;color:var(--white);">
-          <div style="font-size:3rem;margin-bottom:1rem;">▶️</div>
-          <h3 style="font-family:var(--font-display);margin-bottom:0.5rem;">Highlight Dufan</h3>
-          <p style="opacity:0.8;font-size:0.875rem;">Rekaman seru berbagai wahana di Dunia Fantasi yang wajib dicoba</p>
-        </div>
-        <div style="background:linear-gradient(135deg,#1a6b4a,#2d9e6b);border-radius:var(--radius-lg);padding:3rem;text-align:center;color:var(--white);">
-          <div style="font-size:3rem;margin-bottom:1rem;">▶️</div>
-          <h3 style="font-family:var(--font-display);margin-bottom:0.5rem;">Sea World Jakarta</h3>
-          <p style="opacity:0.8;font-size:0.875rem;">Jelajahi kedalaman laut Jakarta di akuarium terbesar se-Asia Tenggara</p>
-        </div>
+      <div id="videoContainer" class="video-grid">
+        <div class="loading">Memuat video…</div>
       </div>
     </div>
   </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="tutupLightbox()">
+    <button class="lightbox-close" onclick="tutupLightbox()">✕</button>
+    <img id="lightboxImg" src="" alt=""/>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
 
   <footer>
     <div class="footer-grid">
@@ -104,5 +174,85 @@
   </footer>
 
   <script src="/js/main.js"></script>
+  <script>
+  const BG_COLORS = [
+    'linear-gradient(135deg,#0a4a4e,#12939e)',
+    'linear-gradient(135deg,#1a6b4a,#2d9e6b)',
+    'linear-gradient(135deg,#4a3a0a,#9e7a12)',
+    'linear-gradient(135deg,#4a0a2a,#9e1257)',
+    'linear-gradient(135deg,#0a2a4a,#1257a0)',
+    'linear-gradient(135deg,#2a0a4a,#5712a0)',
+  ];
+  const EMOJIS = ['🌊','🎢','🦈','🎨','🌅','⛵','💦','🐬','🏙️'];
+
+  async function loadFoto() {
+    const container = document.getElementById('fotoContainer');
+    try {
+      const res = await fetch('/api/galeri/foto');
+      const json = await res.json();
+      if (!json.success || !json.data.length) {
+        container.innerHTML = `<div class="empty-galeri" style="grid-column:1/-1"><div class="icon">📷</div><p>Belum ada foto. Admin belum mengupload foto.</p></div>`;
+        return;
+      }
+      container.innerHTML = json.data.map((f, i) => `
+        <div class="foto-item" onclick="bukaLightbox('/uploads/${f.filename}','${f.judul}')">
+          <img src="/uploads/${f.filename}" alt="${f.judul}" 
+               onerror="this.parentElement.innerHTML='<div class=foto-placeholder style=background:${BG_COLORS[i%BG_COLORS.length]}>${EMOJIS[i%EMOJIS.length]}</div><div class=foto-overlay><span>${f.judul}</span></div>'"/>
+          <div class="foto-overlay"><span>${f.judul}</span></div>
+        </div>`).join('');
+    } catch {
+      container.innerHTML = `<div class="empty-galeri" style="grid-column:1/-1"><div class="icon">⚠️</div><p>Gagal memuat foto.</p></div>`;
+    }
+  }
+
+  async function loadVideo() {
+    const container = document.getElementById('videoContainer');
+    try {
+      const res = await fetch('/api/galeri/video');
+      const json = await res.json();
+      if (!json.success || !json.data.length) {
+        container.innerHTML = `<div class="empty-galeri" style="grid-column:1/-1"><div class="icon">🎬</div><p>Belum ada video. Admin belum menambahkan video.</p></div>`;
+        return;
+      }
+      container.innerHTML = json.data.map(v => {
+        const embedId = getYoutubeId(v.youtube_url);
+        return `
+        <div class="video-card">
+          <div class="video-embed">
+            <iframe src="https://www.youtube.com/embed/${embedId}" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="video-info">
+            <h4>${v.judul}</h4>
+            ${v.keterangan ? `<p>${v.keterangan}</p>` : ''}
+          </div>
+        </div>`;
+      }).join('');
+    } catch {
+      container.innerHTML = `<div class="empty-galeri" style="grid-column:1/-1"><div class="icon">⚠️</div><p>Gagal memuat video.</p></div>`;
+    }
+  }
+
+  function getYoutubeId(url) {
+    const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/);
+    return match ? match[1] : url;
+  }
+
+  function bukaLightbox(src, caption) {
+    document.getElementById('lightboxImg').src = src;
+    document.getElementById('lightboxCaption').textContent = caption;
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function tutupLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') tutupLightbox(); });
+
+  loadFoto();
+  loadVideo();
+  </script>
 </body>
 </html>
