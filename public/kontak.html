@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kontak – Wisata Pantai Ancol</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="nav-brand">🌊 Ancol <span>Wisata</span></a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Beranda</a></li>
+      <li><a href="/tentang">Tentang</a></li>
+      <li><a href="/daya-tarik">Daya Tarik</a></li>
+      <li><a href="/galeri">Galeri</a></li>
+      <li><a href="/paket">Paket Wisata</a></li>
+      <li><a href="/info-kunjungan">Info Kunjungan</a></li>
+      <li><a href="/kontak" class="active">Kontak</a></li>
+      <li><a href="/buku-tamu">Buku Tamu</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Hubungi Kami</h1>
+    <p>Ada pertanyaan? Tim kami siap membantu kamu</p>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start;">
+        <div>
+          <span class="section-tag">Informasi Kontak</span>
+          <h2 style="font-family:var(--font-display);font-size:1.8rem;color:var(--teal-deep);margin-bottom:2rem;">Cara Menghubungi Kami</h2>
+
+          <div style="display:flex;flex-direction:column;gap:1.5rem;">
+            <div style="display:flex;gap:1rem;align-items:flex-start;">
+              <div style="width:48px;height:48px;background:var(--sand-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">📍</div>
+              <div>
+                <h4 style="color:var(--teal-deep);margin-bottom:0.3rem;">Alamat</h4>
+                <p style="color:var(--gray-600);font-size:0.9rem;">Jl. Lodan Timur No. 7, Ancol, Pademangan,<br>Jakarta Utara, DKI Jakarta 14430</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start;">
+              <div style="width:48px;height:48px;background:var(--sand-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">📞</div>
+              <div>
+                <h4 style="color:var(--teal-deep);margin-bottom:0.3rem;">Telepon</h4>
+                <p style="color:var(--gray-600);font-size:0.9rem;">(021) 645-5555<br>Senin – Jumat, 08.00 – 17.00 WIB</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start;">
+              <div style="width:48px;height:48px;background:var(--sand-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">📧</div>
+              <div>
+                <h4 style="color:var(--teal-deep);margin-bottom:0.3rem;">Email</h4>
+                <p style="color:var(--gray-600);font-size:0.9rem;">info@ancol.com<br>cs@ancol.com (Layanan Pelanggan)</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:1rem;align-items:flex-start;">
+              <div style="width:48px;height:48px;background:var(--sand-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">💬</div>
+              <div>
+                <h4 style="color:var(--teal-deep);margin-bottom:0.3rem;">WhatsApp</h4>
+                <p style="color:var(--gray-600);font-size:0.9rem;">+62 812-3456-7890<br>Tersedia 24 jam untuk pesan singkat</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem;background:var(--sand-light);border-radius:var(--radius);padding:1.5rem;">
+            <h4 style="color:var(--teal-deep);margin-bottom:0.75rem;">Media Sosial</h4>
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+              <span style="background:var(--white);padding:0.4rem 1rem;border-radius:999px;font-size:0.85rem;color:var(--teal-deep);font-weight:600;">📘 Facebook</span>
+              <span style="background:var(--white);padding:0.4rem 1rem;border-radius:999px;font-size:0.85rem;color:var(--teal-deep);font-weight:600;">📸 Instagram</span>
+              <span style="background:var(--white);padding:0.4rem 1rem;border-radius:999px;font-size:0.85rem;color:var(--teal-deep);font-weight:600;">🐦 Twitter</span>
+              <span style="background:var(--white);padding:0.4rem 1rem;border-radius:999px;font-size:0.85rem;color:var(--teal-deep);font-weight:600;">▶️ YouTube</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 style="font-family:var(--font-display);color:var(--teal-deep);margin-bottom:1.5rem;font-size:1.4rem;">Kirim Pesan</h3>
+          <div id="alertKontak" class="alert"></div>
+          <div class="form-group">
+            <label for="namaKontak">Nama Lengkap *</label>
+            <input type="text" id="namaKontak" placeholder="Nama kamu" />
+          </div>
+          <div class="form-group">
+            <label for="emailKontak">Email *</label>
+            <input type="email" id="emailKontak" placeholder="email@contoh.com" />
+          </div>
+          <div class="form-group">
+            <label for="subjekKontak">Subjek *</label>
+            <select id="subjekKontak">
+              <option value="">Pilih subjek...</option>
+              <option value="booking">Pertanyaan Booking</option>
+              <option value="tiket">Informasi Tiket</option>
+              <option value="wahana">Informasi Wahana</option>
+              <option value="kerjasama">Kerjasama</option>
+              <option value="lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="pesanKontak">Pesan *</label>
+            <textarea id="pesanKontak" placeholder="Tulis pesanmu di sini..." rows="5"></textarea>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="kirimPesan()">📨 Kirim Pesan</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🌊 Ancol <span>Wisata</span></div>
+        <p class="footer-desc">Destinasi wisata bahari terfavorit di Jakarta.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="/">Beranda</a></li>
+          <li><a href="/tentang">Tentang Ancol</a></li>
+          <li><a href="/daya-tarik">Daya Tarik</a></li>
+          <li><a href="/paket">Paket Wisata</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="/info-kunjungan">Info Kunjungan</a></li>
+          <li><a href="/kontak">Kontak Kami</a></li>
+          <li><a href="/buku-tamu">Buku Tamu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Website Wisata Pantai Ancol — Dibuat untuk tugas kuliah Pemrograman Web</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script>
+  function kirimPesan() {
+    const nama = document.getElementById('namaKontak').value.trim();
+    const email = document.getElementById('emailKontak').value.trim();
+    const subjek = document.getElementById('subjekKontak').value;
+    const pesan = document.getElementById('pesanKontak').value.trim();
+    const alert = document.getElementById('alertKontak');
+
+    if (!nama || !email || !subjek || !pesan) {
+      showAlert(alert, 'error', 'Harap isi semua field yang diperlukan.');
+      return;
+    }
+    // Simulasi pengiriman
+    showAlert(alert, 'success', '✅ Pesan berhasil dikirim! Tim kami akan menghubungi kamu dalam 1×24 jam.');
+    document.getElementById('namaKontak').value = '';
+    document.getElementById('emailKontak').value = '';
+    document.getElementById('subjekKontak').value = '';
+    document.getElementById('pesanKontak').value = '';
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+node_modules/
+ancol.db
+.env
+*.db-shm
+*.db-wal

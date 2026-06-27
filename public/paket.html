@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paket Wisata – Ancol</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="nav-brand">🌊 Ancol <span>Wisata</span></a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Beranda</a></li>
+      <li><a href="/tentang">Tentang</a></li>
+      <li><a href="/daya-tarik">Daya Tarik</a></li>
+      <li><a href="/galeri">Galeri</a></li>
+      <li><a href="/paket" class="active">Paket Wisata</a></li>
+      <li><a href="/info-kunjungan">Info Kunjungan</a></li>
+      <li><a href="/kontak">Kontak</a></li>
+      <li><a href="/buku-tamu">Buku Tamu</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Paket Wisata Ancol</h1>
+    <p>Pilih paket yang sesuai dan nikmati pengalaman terbaik di Ancol</p>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Pilih Paket</span>
+        <h2>6 Paket Wisata Tersedia</h2>
+        <p>Setiap paket dirancang untuk memberikan pengalaman terbaik sesuai kebutuhanmu</p>
+      </div>
+
+      <div id="alertPaket" class="alert"></div>
+      <div id="paketContainer" class="paket-grid">
+        <div class="loading">Memuat paket wisata…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL BOOKING -->
+  <div class="modal-overlay" id="modalBooking">
+    <div class="modal">
+      <button class="modal-close" onclick="tutupModal()">✕</button>
+      <h2>Pesan Paket Wisata</h2>
+      <div class="paket-info-brief" id="modalPaketInfo">
+        <!-- diisi JS -->
+      </div>
+
+      <div id="alertBooking" class="alert"></div>
+
+      <div id="formBookingContainer">
+        <div class="form-group">
+          <label for="namaPemesan">Nama Lengkap *</label>
+          <input type="text" id="namaPemesan" placeholder="Nama pemesan" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="emailPemesan">Email *</label>
+            <input type="email" id="emailPemesan" placeholder="email@contoh.com" />
+          </div>
+          <div class="form-group">
+            <label for="telpPemesan">No. Telepon *</label>
+            <input type="tel" id="telpPemesan" placeholder="08xxxxxxxxxx" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="jumlahOrang">Jumlah Orang *</label>
+            <input type="number" id="jumlahOrang" min="1" value="1" oninput="hitungTotal()" />
+          </div>
+          <div class="form-group">
+            <label for="tanggalKunjungan">Tanggal Kunjungan *</label>
+            <input type="date" id="tanggalKunjungan" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="catatanBooking">Catatan (opsional)</label>
+          <textarea id="catatanBooking" placeholder="Catatan khusus, permintaan tertentu, dll." rows="3"></textarea>
+        </div>
+
+        <div style="background:var(--sand-light);border-radius:var(--radius);padding:1rem;margin-bottom:1.25rem;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--gray-600);font-size:0.9rem;">Total yang harus dibayar:</span>
+            <span id="totalBayarDisplay" style="font-family:var(--font-display);font-size:1.5rem;color:var(--teal-deep);font-weight:800;">Rp 0</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-full" onclick="submitBooking()">
+          ✅ Konfirmasi Booking
+        </button>
+      </div>
+
+      <!-- Hasil konfirmasi -->
+      <div id="hasilKonfirmasi" class="hidden">
+        <!-- diisi JS -->
+      </div>
+    </div>
+  </div>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Cara Booking</span>
+        <h2>3 Langkah Mudah</h2>
+      </div>
+      <div class="cards-grid" style="grid-template-columns:repeat(3,1fr);">
+        <div class="card" style="text-align:center;">
+          <div class="card-img" style="font-size:2rem;height:120px;">1️⃣</div>
+          <div class="card-body">
+            <h3>Pilih Paket</h3>
+            <p>Pilih paket wisata yang sesuai dengan kebutuhan dan anggaran kamu.</p>
+          </div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-img" style="font-size:2rem;height:120px;">2️⃣</div>
+          <div class="card-body">
+            <h3>Isi Form Booking</h3>
+            <p>Lengkapi data diri, jumlah orang, dan tanggal kunjungan yang diinginkan.</p>
+          </div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div class="card-img" style="font-size:2rem;height:120px;">3️⃣</div>
+          <div class="card-body">
+            <h3>Transfer & Konfirmasi</h3>
+            <p>Lakukan transfer sesuai nominal dan simpan kode booking sebagai bukti pembayaran.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🌊 Ancol <span>Wisata</span></div>
+        <p class="footer-desc">Destinasi wisata bahari terfavorit di Jakarta.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="/">Beranda</a></li>
+          <li><a href="/tentang">Tentang Ancol</a></li>
+          <li><a href="/daya-tarik">Daya Tarik</a></li>
+          <li><a href="/paket">Paket Wisata</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="/info-kunjungan">Info Kunjungan</a></li>
+          <li><a href="/kontak">Kontak Kami</a></li>
+          <li><a href="/buku-tamu">Buku Tamu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Website Wisata Pantai Ancol — Dibuat untuk tugas kuliah Pemrograman Web</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/paket.js"></script>
+</body>
+</html>

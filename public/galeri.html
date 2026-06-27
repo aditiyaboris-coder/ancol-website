@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galeri – Wisata Pantai Ancol</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="nav-brand">🌊 Ancol <span>Wisata</span></a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Beranda</a></li>
+      <li><a href="/tentang">Tentang</a></li>
+      <li><a href="/daya-tarik">Daya Tarik</a></li>
+      <li><a href="/galeri" class="active">Galeri</a></li>
+      <li><a href="/paket">Paket Wisata</a></li>
+      <li><a href="/info-kunjungan">Info Kunjungan</a></li>
+      <li><a href="/kontak">Kontak</a></li>
+      <li><a href="/buku-tamu">Buku Tamu</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Galeri Foto</h1>
+    <p>Sekilas keindahan dan keseruan Taman Impian Jaya Ancol</p>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Momen Terbaik</span>
+        <h2>Keindahan Ancol dalam Gambar</h2>
+        <p>Setiap sudut Ancol menyimpan cerita dan keindahan yang siap diabadikan</p>
+      </div>
+
+      <div class="galeri-grid">
+        <div class="galeri-item wide tall" title="Pantai Ancol saat sore hari">🌊</div>
+        <div class="galeri-item" title="Wahana Dufan">🎢</div>
+        <div class="galeri-item" title="Sea World">🦈</div>
+        <div class="galeri-item" title="Pasar Seni Ancol">🎨</div>
+        <div class="galeri-item wide" title="Sunset di Pantai Ancol">🌅</div>
+        <div class="galeri-item" title="Marina Ancol">⛵</div>
+        <div class="galeri-item" title="Atlantis Water Adventure">💦</div>
+        <div class="galeri-item" title="Gelanggang Samudra">🐬</div>
+        <div class="galeri-item wide" title="Panorama Kawasan Ancol">🏙️</div>
+      </div>
+
+      <div class="section-header" style="margin-top:4rem;">
+        <span class="section-tag">Video</span>
+        <h2>Video Tour Ancol</h2>
+        <p>Saksikan keindahan Ancol dari berbagai sudut pandang</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;">
+        <div style="background:linear-gradient(135deg,var(--teal-deep),var(--teal-light));border-radius:var(--radius-lg);padding:3rem;text-align:center;color:var(--white);">
+          <div style="font-size:3rem;margin-bottom:1rem;">▶️</div>
+          <h3 style="font-family:var(--font-display);margin-bottom:0.5rem;">Tour Pantai Ancol</h3>
+          <p style="opacity:0.8;font-size:0.875rem;">Video tour mengelilingi kawasan pantai Ancol dari ujung ke ujung</p>
+        </div>
+        <div style="background:linear-gradient(135deg,#e05c3a,#f4a261);border-radius:var(--radius-lg);padding:3rem;text-align:center;color:var(--white);">
+          <div style="font-size:3rem;margin-bottom:1rem;">▶️</div>
+          <h3 style="font-family:var(--font-display);margin-bottom:0.5rem;">Highlight Dufan</h3>
+          <p style="opacity:0.8;font-size:0.875rem;">Rekaman seru berbagai wahana di Dunia Fantasi yang wajib dicoba</p>
+        </div>
+        <div style="background:linear-gradient(135deg,#1a6b4a,#2d9e6b);border-radius:var(--radius-lg);padding:3rem;text-align:center;color:var(--white);">
+          <div style="font-size:3rem;margin-bottom:1rem;">▶️</div>
+          <h3 style="font-family:var(--font-display);margin-bottom:0.5rem;">Sea World Jakarta</h3>
+          <p style="opacity:0.8;font-size:0.875rem;">Jelajahi kedalaman laut Jakarta di akuarium terbesar se-Asia Tenggara</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🌊 Ancol <span>Wisata</span></div>
+        <p class="footer-desc">Destinasi wisata bahari terfavorit di Jakarta.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="/">Beranda</a></li>
+          <li><a href="/tentang">Tentang Ancol</a></li>
+          <li><a href="/daya-tarik">Daya Tarik</a></li>
+          <li><a href="/paket">Paket Wisata</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="/info-kunjungan">Info Kunjungan</a></li>
+          <li><a href="/kontak">Kontak Kami</a></li>
+          <li><a href="/buku-tamu">Buku Tamu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Website Wisata Pantai Ancol — Dibuat untuk tugas kuliah Pemrograman Web</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

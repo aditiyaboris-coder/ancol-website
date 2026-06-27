@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buku Tamu – Wisata Pantai Ancol</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="nav-brand">🌊 Ancol <span>Wisata</span></a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Beranda</a></li>
+      <li><a href="/tentang">Tentang</a></li>
+      <li><a href="/daya-tarik">Daya Tarik</a></li>
+      <li><a href="/galeri">Galeri</a></li>
+      <li><a href="/paket">Paket Wisata</a></li>
+      <li><a href="/info-kunjungan">Info Kunjungan</a></li>
+      <li><a href="/kontak">Kontak</a></li>
+      <li><a href="/buku-tamu" class="active">Buku Tamu</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <h1>✍️ Buku Tamu</h1>
+    <p>Bagikan pengalamanmu dan baca kesan pengunjung lainnya</p>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:3rem;align-items:start;">
+
+        <!-- FORM -->
+        <div>
+          <div class="form-section">
+            <h3 style="font-family:var(--font-display);color:var(--teal-deep);margin-bottom:0.5rem;font-size:1.4rem;">Tinggalkan Kesanmu</h3>
+            <p style="color:var(--gray-600);font-size:0.875rem;margin-bottom:1.5rem;">Ceritakan pengalamanmu berkunjung ke Ancol!</p>
+
+            <div id="alertBukuTamu" class="alert"></div>
+
+            <div class="form-group">
+              <label for="namaTamu">Nama Lengkap *</label>
+              <input type="text" id="namaTamu" placeholder="Nama kamu" />
+            </div>
+            <div class="form-group">
+              <label for="emailTamu">Email *</label>
+              <input type="email" id="emailTamu" placeholder="email@contoh.com" />
+            </div>
+            <div class="form-group">
+              <label for="asalKota">Asal Kota *</label>
+              <input type="text" id="asalKota" placeholder="Contoh: Bandung, Surabaya..." />
+            </div>
+
+            <div class="form-group">
+              <label>Rating Pengalaman *</label>
+              <div class="star-rating" id="starRating">
+                <input type="radio" name="rating" id="star5" value="5" checked />
+                <label for="star5">★</label>
+                <input type="radio" name="rating" id="star4" value="4" />
+                <label for="star4">★</label>
+                <input type="radio" name="rating" id="star3" value="3" />
+                <label for="star3">★</label>
+                <input type="radio" name="rating" id="star2" value="2" />
+                <label for="star2">★</label>
+                <input type="radio" name="radio" id="star1" value="1" />
+                <label for="star1">★</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="pesanTamu">Pesan / Kesan *</label>
+              <textarea id="pesanTamu" placeholder="Ceritakan pengalamanmu di Ancol..." rows="4"></textarea>
+            </div>
+
+            <button class="btn btn-primary btn-full" id="btnSubmitTamu" onclick="submitBukuTamu()">
+              ✍️ Kirim Kesan
+            </button>
+          </div>
+        </div>
+
+        <!-- DAFTAR ENTRI -->
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+            <div>
+              <h3 style="font-family:var(--font-display);color:var(--teal-deep);font-size:1.4rem;">Kesan Pengunjung</h3>
+              <p style="color:var(--gray-600);font-size:0.875rem;" id="totalEntri">Memuat data…</p>
+            </div>
+            <button class="btn btn-teal" style="padding:0.5rem 1rem;font-size:0.85rem;" onclick="muatBukuTamu()">🔄 Refresh</button>
+          </div>
+
+          <div id="bukuTamuEntries">
+            <div class="loading">Memuat entri buku tamu…</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🌊 Ancol <span>Wisata</span></div>
+        <p class="footer-desc">Destinasi wisata bahari terfavorit di Jakarta.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="/">Beranda</a></li>
+          <li><a href="/tentang">Tentang Ancol</a></li>
+          <li><a href="/daya-tarik">Daya Tarik</a></li>
+          <li><a href="/paket">Paket Wisata</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="/info-kunjungan">Info Kunjungan</a></li>
+          <li><a href="/kontak">Kontak Kami</a></li>
+          <li><a href="/buku-tamu">Buku Tamu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Website Wisata Pantai Ancol — Dibuat untuk tugas kuliah Pemrograman Web</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/buku-tamu.js"></script>
+</body>
+</html>

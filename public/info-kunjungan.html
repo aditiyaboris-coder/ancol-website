@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Info Kunjungan – Wisata Pantai Ancol</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="nav-brand">🌊 Ancol <span>Wisata</span></a>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">Beranda</a></li>
+      <li><a href="/tentang">Tentang</a></li>
+      <li><a href="/daya-tarik">Daya Tarik</a></li>
+      <li><a href="/galeri">Galeri</a></li>
+      <li><a href="/paket">Paket Wisata</a></li>
+      <li><a href="/info-kunjungan" class="active">Info Kunjungan</a></li>
+      <li><a href="/kontak">Kontak</a></li>
+      <li><a href="/buku-tamu">Buku Tamu</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-hero">
+    <h1>Info Kunjungan</h1>
+    <p>Semua yang perlu kamu tahu sebelum berkunjung ke Ancol</p>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;">
+        <div>
+          <span class="section-tag">Jam Operasional</span>
+          <h2 style="font-family:var(--font-display);font-size:1.8rem;color:var(--teal-deep);margin-bottom:1.5rem;">Waktu Kunjungan</h2>
+          <table class="info-table">
+            <tr><th>Kawasan</th><th>Jam Buka</th></tr>
+            <tr><td>Kawasan Ancol (Pintu Masuk)</td><td>07.00 – 22.00 WIB</td></tr>
+            <tr><td>Dufan (Dunia Fantasi)</td><td>10.00 – 20.00 WIB</td></tr>
+            <tr><td>Sea World Jakarta</td><td>09.00 – 18.00 WIB</td></tr>
+            <tr><td>Atlantis Water Adventure</td><td>09.00 – 17.00 WIB</td></tr>
+            <tr><td>Gelanggang Samudra</td><td>09.00 – 18.00 WIB</td></tr>
+            <tr><td>Pasar Seni</td><td>10.00 – 22.00 WIB</td></tr>
+            <tr><td>Marina Ancol</td><td>08.00 – 20.00 WIB</td></tr>
+          </table>
+        </div>
+        <div>
+          <span class="section-tag">Harga Tiket</span>
+          <h2 style="font-family:var(--font-display);font-size:1.8rem;color:var(--teal-deep);margin-bottom:1.5rem;">Tiket Masuk</h2>
+          <table class="info-table">
+            <tr><th>Kategori</th><th>Harga</th></tr>
+            <tr><td>Tiket Kawasan (Weekday)</td><td>Rp 25.000</td></tr>
+            <tr><td>Tiket Kawasan (Weekend)</td><td>Rp 35.000</td></tr>
+            <tr><td>Dufan Dewasa</td><td>Rp 360.000</td></tr>
+            <tr><td>Dufan Anak (di bawah 3 thn)</td><td>Gratis</td></tr>
+            <tr><td>Sea World Dewasa</td><td>Rp 120.000</td></tr>
+            <tr><td>Sea World Anak</td><td>Rp 90.000</td></tr>
+            <tr><td>Atlantis Dewasa</td><td>Rp 180.000</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Akses & Transportasi</span>
+        <h2>Cara Menuju Ancol</h2>
+        <p>Berbagai pilihan transportasi tersedia untuk mencapai kawasan Ancol dengan nyaman</p>
+      </div>
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-img">🚌</div>
+          <div class="card-body">
+            <h3>TransJakarta</h3>
+            <p>Naiki Bus TransJakarta Koridor 1 (Blok M – Kota), lalu sambung dengan feeder bus jurusan Ancol. Berhenti di Halte Ancol.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🚗</div>
+          <div class="card-body">
+            <h3>Kendaraan Pribadi</h3>
+            <p>Akses via Jalan RE Martadinata (Jalan Kali Besar) atau Jalan Ancol Timur. Tersedia parkir luas untuk motor, mobil, dan bus.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">🚕</div>
+          <div class="card-body">
+            <h3>Taksi & Online</h3>
+            <p>Grab, Gojek, dan taksi konvensional tersedia mengantar langsung ke pintu masuk Ancol. Area drop-off tersedia di setiap gerbang.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Tips Berkunjung</span>
+        <h2>Buat Kunjunganmu Lebih Seru</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.5rem;">
+        <div style="background:var(--sand-light);border-radius:var(--radius);padding:1.5rem;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">⏰</div>
+          <h4 style="color:var(--teal-deep);margin-bottom:0.5rem;">Datang Pagi</h4>
+          <p style="font-size:0.875rem;color:var(--gray-600);">Datanglah saat buka (07.00) untuk menghindari antrean panjang di hari libur dan akhir pekan.</p>
+        </div>
+        <div style="background:var(--sand-light);border-radius:var(--radius);padding:1.5rem;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">🎫</div>
+          <h4 style="color:var(--teal-deep);margin-bottom:0.5rem;">Beli Tiket Online</h4>
+          <p style="font-size:0.875rem;color:var(--gray-600);">Hemat waktu dengan membeli tiket di website resmi atau aplikasi Ancol sebelum berangkat.</p>
+        </div>
+        <div style="background:var(--sand-light);border-radius:var(--radius);padding:1.5rem;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">☀️</div>
+          <h4 style="color:var(--teal-deep);margin-bottom:0.5rem;">Bawa Sunscreen</h4>
+          <p style="font-size:0.875rem;color:var(--gray-600);">Area pantai sangat terik, terutama siang hari. Pakai sunscreen SPF 30+ dan bawa topi atau payung.</p>
+        </div>
+        <div style="background:var(--sand-light);border-radius:var(--radius);padding:1.5rem;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">💳</div>
+          <h4 style="color:var(--teal-deep);margin-bottom:0.5rem;">Siapkan Uang Lebih</h4>
+          <p style="font-size:0.875rem;color:var(--gray-600);">Siapkan uang tunai dan kartu untuk kuliner, suvenir, dan wahana tambahan selama kunjungan.</p>
+        </div>
+        <div style="background:var(--sand-light);border-radius:var(--radius);padding:1.5rem;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">👟</div>
+          <h4 style="color:var(--teal-deep);margin-bottom:0.5rem;">Pakai Alas Kaki Nyaman</h4>
+          <p style="font-size:0.875rem;color:var(--gray-600);">Kawasan Ancol sangat luas. Gunakan sandal atau sepatu yang nyaman untuk berjalan jauh.</p>
+        </div>
+        <div style="background:var(--sand-light);border-radius:var(--radius);padding:1.5rem;">
+          <div style="font-size:2rem;margin-bottom:0.75rem;">📷</div>
+          <h4 style="color:var(--teal-deep);margin-bottom:0.5rem;">Jangan Lupa Kamera</h4>
+          <p style="font-size:0.875rem;color:var(--gray-600);">Ancol punya banyak spot foto instagramable. Pastikan baterai dan memori HP penuh sebelum berangkat.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">🌊 Ancol <span>Wisata</span></div>
+        <p class="footer-desc">Destinasi wisata bahari terfavorit di Jakarta.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="/">Beranda</a></li>
+          <li><a href="/tentang">Tentang Ancol</a></li>
+          <li><a href="/daya-tarik">Daya Tarik</a></li>
+          <li><a href="/paket">Paket Wisata</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="/info-kunjungan">Info Kunjungan</a></li>
+          <li><a href="/kontak">Kontak Kami</a></li>
+          <li><a href="/buku-tamu">Buku Tamu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Website Wisata Pantai Ancol — Dibuat untuk tugas kuliah Pemrograman Web</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
